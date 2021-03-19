@@ -1,0 +1,6 @@
+@media(max-width: 767px){
+
+    div.dataTables_wrapper div.dataTables_length label {
+    margin-left: -90;
+}
+}
