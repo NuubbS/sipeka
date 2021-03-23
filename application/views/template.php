@@ -137,6 +137,7 @@
                             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                                     class="fas fa-users"></i> <span>Data Pengguna</span></a>
                             <ul class="dropdown-menu">
+                                <li class=""><a class="nav-link" href="#">Administrator</a></li>
                                 <li class=""><a class="nav-link" href="#">Petugas</a></li>
                                 <li><a class="nav-link" href="#">Anggota</a></li>
                             </ul>
