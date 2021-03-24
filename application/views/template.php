@@ -126,20 +126,19 @@
                             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                                     class="fas fa-university"></i> <span>Data Pepustakaan</span></a>
                             <ul class="dropdown-menu">
-                                <li class=""><a class="nav-link" href="#">Buku</a></li>
-                                <li><a class="nav-link" href="#">Kategori</a></li>
-                                <li><a class="nav-link" href="#">Status/Kondisi</a></li>
-                                <li><a class="nav-link" href="#">Rak</a></li>
-                                <li><a class="nav-link" href="#">Peraturan</a></li>
+                                <li class=""><a class="nav-link" href="<?php echo base_url ('pages/buku'); ?>">Buku</a></li>
+                                <li><a class="nav-link" href="<?php echo base_url ('pages/kategori'); ?>">Kategori</a></li>
+                                <li><a class="nav-link" href="<?php echo base_url ('pages/kondisi'); ?>">Status/Kondisi</a></li>
+                                <li><a class="nav-link" href="<?php echo base_url ('pages/rak'); ?>">Rak</a></li>
+                                <li><a class="nav-link" href="<?php echo base_url ('pages/peraturan'); ?>">Peraturan</a></li>
                             </ul>
                         </li>
                         <li class="dropdown">
                             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                                     class="fas fa-users"></i> <span>Data Pengguna</span></a>
                             <ul class="dropdown-menu">
-                                <li class=""><a class="nav-link" href="#">Administrator</a></li>
-                                <li class=""><a class="nav-link" href="#">Petugas</a></li>
-                                <li><a class="nav-link" href="#">Anggota</a></li>
+                                <li class=""><a class="nav-link" href="<?php echo base_url ('pages/petugas'); ?>">Petugas</a></li>
+                                <li><a class="nav-link" href="<?php echo base_url ('pages/anggota'); ?>">Anggota</a></li>
                             </ul>
                         </li>
                         <!-- dropdown -->
@@ -195,8 +194,8 @@
                             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                                     class="fas fa-laptop-code"></i> <span>Aplikasi</span></a>
                             <ul class="dropdown-menu">
-                                <li class=""><a class="nav-link" href="#">Maintenanec Aplikasi</a></li>
-                                <li><a class="nav-link" href="#">Kontak Developer</a></li>
+                                <li class=""><a class="nav-link" href="<?php echo base_url ('pages/maintenance'); ?>">Maintenance Aplikasi</a></li>
+                                <li><a class="nav-link" href="<?php echo base_url ('pages/kontak'); ?>">Kontak Developer</a></li>
                             </ul>
                         </li>
                         <li class="">
