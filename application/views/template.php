@@ -124,7 +124,7 @@
                         <!-- dropdown -->
                         <li class="dropdown">
                             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
-                                    class="fas fa-university"></i> <span>Data Pepustakaan</span></a>
+                                    class="fas fa-university"></i> <span>Data Perpustakaan</span></a>
                             <ul class="dropdown-menu">
                                 <li class=""><a class="nav-link" href="<?php echo base_url ('pages/buku'); ?>">Buku</a></li>
                                 <li><a class="nav-link" href="<?php echo base_url ('pages/kategori'); ?>">Kategori</a></li>
