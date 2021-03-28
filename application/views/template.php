@@ -114,26 +114,36 @@
                     </div>
                     <ul class="sidebar-menu">
                         <li class="menu-header">Dashboard</li>
-                        <li class="active">
-                            <a class="nav-link" href="<?= base_url() ?>dashboard">
+                        <li
+                            class="<?= $this->uri->segment(2) == 'dashboard' || $this->uri->segment(1) == null ? 'active' : '' ?>">
+                            <a class="nav-link" href="<?= base_url('pages/dashboard') ?>">
                                 <i class="fas fa-fire"></i>
                                 <span>Dashboard</span>
                             </a>
                         </li>
                         <li class="menu-header">MASTER DATA</li>
                         <!-- dropdown -->
-                        <li class="dropdown">
+                        <li
+                            class="nav-item dropdown <?= $this->uri->segment(2) == "rak" || $this->uri->segment(1) == "buku" ? 'active' : '' ?>">
                             <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
                                     class="fas fa-university"></i> <span>Data Perpustakaan</span></a>
                             <ul class="dropdown-menu">
-                                <li class=""><a class="nav-link" href="<?php echo base_url ('pages/buku'); ?>">Buku</a>
+                                <li>
+                                    <a class="nav-link" href="<?php echo base_url ('pages/buku'); ?>">Buku</a>
                                 </li>
-                                <li><a class="nav-link" href="<?php echo base_url ('pages/kategori'); ?>">Kategori</a>
+                                <li>
+                                    <a class="nav-link" href="<?php echo base_url ('pages/kategori'); ?>">Kategori</a>
                                 </li>
-                                <li><a class="nav-link"
-                                        href="<?php echo base_url ('pages/kondisi'); ?>">Status/Kondisi</a></li>
-                                <li><a class="nav-link" href="<?php echo base_url ('pages/rak'); ?>">Rak</a></li>
-                                <li><a class="nav-link" href="<?php echo base_url ('pages/peraturan'); ?>">Peraturan</a>
+                                <li>
+                                    <a class="nav-link"
+                                        href="<?php echo base_url ('pages/kondisi'); ?>">Status/Kondisi</a>
+                                </li>
+                                <li
+                                    class="<?= $this->uri->segment(2) == 'rak' || $this->uri->segment(1) == null ? 'active' : '' ?>">
+                                    <a class="nav-link" href="<?php echo base_url ('pages/rak'); ?>">Rak</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" href="<?php echo base_url ('pages/denda'); ?>">denda</a>
                                 </li>
                             </ul>
                         </li>
@@ -193,6 +203,17 @@
                                 <span>pengembalian</span>
                             </a>
                         </li>
+                        <li class="menu-header">Fitur</li>
+                        <li class="dropdown">
+                            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-file"></i>
+                                <span>Laporan</span></a>
+                            <ul class="dropdown-menu">
+                                <li class=""><a class="nav-link"
+                                        href="<?php echo base_url ('pages/laporan_ojt'); ?>">OJT</a></li>
+                                <li><a class="nav-link" href="<?php echo base_url ('pages/anggota'); ?>">Tugas Akhir</a>
+                                </li>
+                            </ul>
+                        </li>
                         <!-- admin menu -->
                         <li class="menu-header">Pengaturan</li>
                         <li class="dropdown">
@@ -236,7 +257,9 @@
 
             <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; <?= date('Y'); ?> <div class="bullet"></div> Develop By <a href="#">Arief
+                    Copyright &copy; 2021
+                    <? date('Y') = 2021 ? '' : - date('Y') ?>
+                    <div class="bullet"></div> Develop By <a href="#">Arief
                         Rahman
                         Putera</a> &mdash; <a href="https://github.com/NuubbS/">M. Hamdan Yusuf</a>
                 </div>

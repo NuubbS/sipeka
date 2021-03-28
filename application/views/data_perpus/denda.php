@@ -2,10 +2,10 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Peraturan</h1>
+            <h1>Denda</h1>
         </div>
         <!-- pintasan carousel -->
-        
+
         <!-- pintasan carousel -->
         <!-- data tabel -->
         <!-- data tabel -->

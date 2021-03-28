@@ -36,9 +36,9 @@ class Pages extends CI_Controller
         $this->template->load('template','data_perpus/rak');
     }
     
-    public function peraturan()
+    public function denda()
     {
-        $this->template->load('template','data_perpus/peraturan');
+        $this->template->load('template','data_perpus/denda');
     }
 
     // data pengguna
@@ -68,4 +68,12 @@ class Pages extends CI_Controller
     {
         $this->template->load('template','aplikasi/kontak');
     }
+    
+    // laporan
+    public function laporan_ojt()
+    {
+        $this->load->view('laporan/ojt');
+    }
+    
+
 }
