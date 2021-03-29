@@ -26,9 +26,9 @@ class DataPerpus_m extends CI_Model
     //     }
     // }
 
-    public function update_rak($user_id, $data)
+    public function update_rak($rak_id, $data)
     {
-        if (@$this->db->where('user_id', $user_id)->update('user_crud', $data)) {
+        if (@$this->db->where('rak_id', $rak_id)->update('tb_rak', $data)) {
             return true;
         } else {
             return false;

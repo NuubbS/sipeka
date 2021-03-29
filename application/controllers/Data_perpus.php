@@ -8,7 +8,7 @@ class Data_perpus extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('dataperpus_m');
+        $this->load->model(['kodeotomatis_m', 'dataperpus_m']);
     }
     
 	// rak proses
@@ -36,10 +36,25 @@ class Data_perpus extends CI_Controller
 	// menyimpan data rak
 	function rak_simpan()
     {
+        // b0001 kode awal
+        // RK01
+        $table = "tb_rak";
+        $field = "rak_kode";
+        
+        // kode terakhir
+        $lastKode = $this->kodeotomatis_m->getMax($table, $field);
+        // mengambil 2 karakter terakhir
+        $noUrut = (int) substr($lastKode, -2, 2);
+        $noUrut++;
+
+        $str = "RK";
+        $newKode = $str . sprintf('%02s', $noUrut);
+        // membuat kode otomatis
+
         // user id
         $session_id = 'admin';
         //table rak
-        $kode = $this->input->post('rak_kode');
+        $kode = $newKode;
         $nama = $this->input->post('rak_nama');
         $keterangan = $this->input->post('rak_keterangan');
 
@@ -83,16 +98,19 @@ class Data_perpus extends CI_Controller
     function rak_update()
     {
         //table rak
-        $user_id = $this->input->post('user_id');
-        $role_id = $this->input->post('role_id');
+        // $rak_id = 'admin';
+        $rak_id = $this->input->post('rak_id');
+        $nama = $this->input->post('rak_nama');
+        $keterangan = $this->input->post('rak_keterangan');
 
         $data = [
-            "role_id" => $role_id,
+            "rak_id" => $rak_id,
+            "rak_nama" => $nama,
+            "rak_keterangan" => $keterangan,
             "date_updated" => date('Y-m-d H:i:s'),
         ];
-
-        $update_user_id = $this->user_m->update_user($user_id, $data);
-        if (@$update_user_id) {
+        $update_rak_id = $this->dataperpus_m->update_rak($rak_id, $data);
+        if (@$update_rak_id) {
             $message['messages'] = "Berhasil Update Data user";
             $message['status'] = "1";
         } else {

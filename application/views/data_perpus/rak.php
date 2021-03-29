@@ -212,7 +212,7 @@ function updateData() {
         success: function(result) {
             message = result.messages;
             status = result.status;
-            $('#modalUserUpdate').modal('hide');
+            $('#update_rak').modal('hide');
             notifikasi(status, message);
         }
     });
@@ -286,10 +286,6 @@ function closes_update() {
             <form id="form_tambah" action="<?= base_url('data_perpus/rak_simpan'); ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Kode</label>
-                        <input type="text" class="form-control" name="rak_kode" id="rak_kode" required="">
-                    </div>
-                    <div class="form-group">
                         <label>Nama</label>
                         <input type="text" class="form-control" name="rak_nama" id="rak_nama" required="">
                     </div>
@@ -315,7 +311,7 @@ function closes_update() {
                 <h5 class="modal-title">Perbarui Data Rak</h5> <button type="button" class="close" data-dismiss="modal"
                     aria-label="Close"> <span aria-hidden="true">×</span> </button>
             </div>
-            <form id="form_tambah" action="<?= base_url('data_perpus/rak_update'); ?>" method="post">
+            <form id="form_update" action="<?= base_url('data_perpus/rak_update'); ?>" method="post">
                 <div class="modal-body" id="content_update">
                     <!-- isi form di folder lain -->
                 </div>
