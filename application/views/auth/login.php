@@ -44,10 +44,10 @@
 
                         <div class="card card-primary">
                             <div class="card-body">
-                                <form method="POST" action="#">
+                                <form method="POST" action="<?=site_url('auth/process')?> ">
                                     <div class="form-group">
                                         <label for="username">Username</label>
-                                        <input id="username" type="email" class="form-control" name="username"
+                                        <input id="username" type="text" class="form-control" name="username"
                                             tabindex="1" required autofocus>
                                     </div>
 
@@ -73,10 +73,10 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <a href="<?= base_url('pages/dashboard'); ?>"
+                                        <button type="submit" name="login"
                                             class="btn btn-primary btn-lg btn-block" tabindex="4">
                                             Login
-                                        </a>
+                                        </button>
                                         <!-- <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
 											Login
 										</button> -->
