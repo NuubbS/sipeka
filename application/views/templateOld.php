@@ -121,53 +121,29 @@
                                 <span>Dashboard</span>
                             </a>
                         </li>
-                        <li class="menu-header">DATA PERPUSTAKAAN</li>
+                        <li class="menu-header">MASTER DATA</li>
                         <!-- dropdown -->
                         <li
                             class="nav-item dropdown <?= $this->uri->segment(2) == "rak" || $this->uri->segment(1) == "buku" ? 'active' : '' ?>">
-                            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-book"></i>
-                                <span>Buku</span></a>
+                            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                                    class="fas fa-university"></i> <span>Data Perpustakaan</span></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="nav-link" href="<?php echo base_url ('pages/buku'); ?>">Mata Kuliah</a>
+                                    <a class="nav-link" href="<?php echo base_url ('pages/buku'); ?>">Buku</a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="<?php echo base_url ('pages/kategori'); ?>">Laporan Tugas
-                                        Akhir</a>
+                                    <a class="nav-link" href="<?php echo base_url ('pages/kategori'); ?>">Kategori</a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="<?php echo base_url ('pages/kondisi'); ?>">Laporan OJT</a>
-                                </li>
-                                <li>
-                                    <a class="nav-link" href="<?php echo base_url ('pages/kondisi'); ?>">Referensi</a>
+                                    <a class="nav-link"
+                                        href="<?php echo base_url ('pages/kondisi'); ?>">Status/Kondisi</a>
                                 </li>
                                 <li
                                     class="<?= $this->uri->segment(2) == 'rak' || $this->uri->segment(1) == null ? 'active' : '' ?>">
                                     <a class="nav-link" href="<?php echo base_url ('pages/rak'); ?>">Rak</a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="<?php echo base_url ('pages/tahun'); ?>">Tahun Terbit</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
-                                    class="fab fa-wpforms"></i> <span>Peraturan</span></a>
-                            <ul class="dropdown-menu">
-                                <li class=""><a class="nav-link"
-                                        href="<?php echo base_url ('pages/lama_peminjaman'); ?>">Lama Peminjaman</a>
-                                </li>
-                                <li>
-                                    <a class="nav-link" href="<?php echo base_url ('pages/denda'); ?>">Denda</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
-                                    class="fas fa-university"></i> <span>Kampus</span></a>
-                            <ul class="dropdown-menu">
-                                <li class=""><a class="nav-link"
-                                        href="<?php echo base_url ('pages/program_studi'); ?>">Program Studi</a>
+                                    <a class="nav-link" href="<?php echo base_url ('pages/denda'); ?>">denda</a>
                                 </li>
                             </ul>
                         </li>
@@ -282,6 +258,7 @@
             <footer class="main-footer">
                 <div class="footer-left">
                     Copyright &copy; 2021
+                    <? date('Y') = 2021 ? '' : - date('Y') ?>
                     <div class="bullet"></div> Develop By <a href="#">Arief
                         Rahman
                         Putera</a> &mdash; <a href="https://github.com/NuubbS/">M. Hamdan Yusuf</a>

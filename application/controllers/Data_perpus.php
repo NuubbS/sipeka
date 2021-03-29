@@ -4,15 +4,22 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Data_perpus extends CI_Controller
 {
 
+    // global function
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('dataperpus_m');
+    }
+    
 	// rak proses
 
 	// Untuk menampilkan data rak
 	function rak_fetch()
 	{
-        $this->datatables->search('tb_rak.rak_id, tb_rak.rak_nama, tb_rak.keterangan, tb_rak.date_created, tb_rak.date_updated, tb_rak.created_by');
-        $this->datatables->select('rak_id, rak_nama, keterangan, date_created, date_updated, created_by');
+        $this->datatables->search('tb_rak.rak_id, tb_rak.rak_kode, tb_rak.rak_nama, tb_rak.rak_keterangan, tb_rak.date_created, tb_rak.date_updated, tb_rak.created_by');
+        $this->datatables->select('rak_id, rak_kode, rak_nama, rak_keterangan, date_created, date_updated, created_by');
         $this->datatables->from('tb_rak');
-		$this->datatables->order_by('tb_rak.date_created', "DESC");
+		$this->datatables->order_by('date_created', 'DESC');
         $m = $this->datatables->get();
         $no = 1;
         foreach ($m as $key => $value) {
@@ -30,25 +37,25 @@ class Data_perpus extends CI_Controller
 	function rak_simpan()
     {
         // user id
-        $session_id = $this->session->userdata('user_id');
-        //table soal
-        $kategori = $this->input->post('intervensi_kategori');
-        $nama = $this->input->post('nama');
-        $status = $this->input->post('status');
+        $session_id = 'admin';
+        //table rak
+        $kode = $this->input->post('rak_kode');
+        $nama = $this->input->post('rak_nama');
+        $keterangan = $this->input->post('rak_keterangan');
 
         $data = [
-            "nama" => $nama,
-            "intervensi_kategori_id" => $kategori,
-            "created_time" => date('Y-m-d H:i:s'),
+            "rak_kode" => $kode,
+            "rak_nama" => $nama,
+            "rak_keterangan" => $keterangan,
+            "date_created" => date('Y-m-d H:i:s'),
             "created_by" => $session_id,
-            "status" => $status
         ];
-        $insert_soal_id = $this->model_caseconference->simpan_soal($data);
-        if (@$insert_soal_id) {
-            $message['messages'] = "Berhasil Menambah Data Soal....";
+        $insert_rak_id = $this->dataperpus_m->simpan_rak($data);
+        if (@$insert_rak_id) {
+            $message['messages'] = "Berhasil Menambah Data rak....";
             $message['status'] = "1";
         } else {
-            $message['messages'] = "Gagal Mengeksekusi Query Soal";
+            $message['messages'] = "Gagal Mengeksekusi Query rak";
             $message['status'] = "0";
         }
         echo json_encode($message);
@@ -57,10 +64,10 @@ class Data_perpus extends CI_Controller
     // menampikan data sesuai id
     function rak_edit($id)
     {
-        $this->data['role'] = $this->main_m->view('user_role')->result();
-        $this->data['user'] = $this->main_m->view_where('user', ['user_id' => $id])->row();
+        // $this->data['role'] = $this->main_m->view('user_role')->result();
+        $this->data['rak'] = $this->main_m->view_where('tb_rak', ['rak_id' => $id])->row();
 
-        $this->load->view('administrator/user_update', $this->data);
+        $this->load->view('form_update/rak_update', $this->data);
     }
 
 	// menampilkan detail rak
@@ -75,7 +82,7 @@ class Data_perpus extends CI_Controller
     // mengupdate rak
     function rak_update()
     {
-        //table soal
+        //table rak
         $user_id = $this->input->post('user_id');
         $role_id = $this->input->post('role_id');
 
@@ -97,7 +104,7 @@ class Data_perpus extends CI_Controller
 
     function user_profile_update()
     {
-        //table soal
+        //table rak
         $user_id = $this->input->post('user_id');
         $nama = $this->input->post('nama');
         $alamat = $this->input->post('alamat');
@@ -125,7 +132,7 @@ class Data_perpus extends CI_Controller
     function rak_hapus()
     {
         $id = $this->input->post('id');
-        $del = $this->model_caseconference->hapus_soal($id);
+        $del = $this->dataperpus_m->hapus_rak($id);
         if (@$del) {
             echo json_encode(true);
         } else {

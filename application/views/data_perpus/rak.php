@@ -8,7 +8,7 @@
         <div class="section-body">
             <p class="section-lead">
                 <button onclick="tambah();" class="btn btn-icon icon-left btn-primary" data-toggle="modal"
-                    data-target="#tambah_user">
+                    data-target="#tambah_rak">
                     <i class="fas fa-rss-square"></i>
                     Tambahkan
                     Rak
@@ -25,6 +25,7 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
+                                            <th scope="col">Kode</th>
                                             <th scope="col">Nama</th>
                                             <th scope="col">Keterangan</th>
                                             <th scope="col">Tgl dibuat</th>
@@ -113,7 +114,7 @@ function saveData() {
         image: "",
         fontawesome: "fa fa-spinner fa-pulse"
     });
-    var form = $('#form_add');
+    var form = $('#form_tambah');
     $.ajax({
         type: "POST",
         url: form.attr('action'),
@@ -122,7 +123,7 @@ function saveData() {
         success: function(result) {
             message = result.messages;
             status = result.status;
-            $('#modalUserAdd').modal('hide');
+            $('#tambah_rak').modal('hide');
             $('input').val('');
             notifikasi(status, message);
             clear_form_elements('modal-body');
@@ -159,7 +160,7 @@ function tambah() {
         image: "",
         fontawesome: "fa fa-spinner fa-pulse"
     });
-    $('#tambah_user').modal('show');
+    $('#tambah_rak').modal('show');
     $.LoadingOverlay("hide");
 }
 
@@ -169,11 +170,11 @@ function edit(id) {
         fontawesome: "fa fa-spinner fa-pulse"
     });
     $.ajax({
-        url: "<?= base_url("tutorial/crud_edit/") ?>" + id,
+        url: "<?= base_url("data_perpus/rak_edit/") ?>" + id,
         dataType: "html",
         success: function(result) {
             $.LoadingOverlay("hide");
-            $('#modalUserUpdate').modal('show');
+            $('#update_rak').modal('show');
             $('#content_update').html(result);
 
         }
@@ -233,7 +234,7 @@ function hapus(id) {
                 image: "",
                 fontawesome: "fa fa-spinner fa-pulse"
             });
-            $.post('<?= base_url('tutorial/crud_hapus') ?>', {
+            $.post('<?= base_url('data_perpus/rak_hapus') ?>', {
                 'id': id
             }, function(data, textStatus, xhr) {
                 $.LoadingOverlay("hide");
@@ -265,29 +266,65 @@ function hapus(id) {
 
 
 function closes() {
-    $('#tambah_user').modal('hide');
+    $('#tambah_rak').modal('hide');
 }
 
 function closes_update() {
-    $('#modalUserUpdate').modal('hide');
+    $('#update_rak').modal('hide');
 }
 </script>
 <!-- script crud-->
 
-<!-- modal -->
-<div class="modal fade" tabindex="-1" role="dialog" id="tambah_user" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-md" role="document">
+<!-- modal tambah -->
+<div class="modal fade" tabindex="-1" role="dialog" id="tambah_rak" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal Title</h5> <button type="button" class="close" data-dismiss="modal"
+                <h5 class="modal-title">Masukkan Data Rak</h5> <button type="button" class="close" data-dismiss="modal"
                     aria-label="Close"> <span aria-hidden="true">×</span> </button>
             </div>
-            <div class="modal-body"> Modal body text goes here.</div>
-            <div class="modal-footer bg-whitesmoke br">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+            <form id="form_tambah" action="<?= base_url('data_perpus/rak_simpan'); ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Kode</label>
+                        <input type="text" class="form-control" name="rak_kode" id="rak_kode" required="">
+                    </div>
+                    <div class="form-group">
+                        <label>Nama</label>
+                        <input type="text" class="form-control" name="rak_nama" id="rak_nama" required="">
+                    </div>
+                    <div class="form-group">
+                        <label>Keterangan</label>
+                        <input type="text" class="form-control" name="rak_keterangan" id="rak_keterangan" required="">
+                    </div>
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                    <button type="button" onclick="saveData()" class="btn btn-primary">Simpan Data</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
-<!-- modal -->
+<!-- modal tambah-->
+<!-- modal update -->
+<div class="modal fade" tabindex="-1" role="dialog" id="update_rak" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Perbarui Data Rak</h5> <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"> <span aria-hidden="true">×</span> </button>
+            </div>
+            <form id="form_tambah" action="<?= base_url('data_perpus/rak_update'); ?>" method="post">
+                <div class="modal-body" id="content_update">
+                    <!-- isi form di folder lain -->
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <button type="button" class="btn btn-danger" onclick="closes_update()">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="updateData()">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- modal update -->
