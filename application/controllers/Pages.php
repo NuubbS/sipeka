@@ -73,7 +73,12 @@ class Pages extends CI_Controller
     // laporan
     public function laporan_ojt()
     {
-        $this->load->view('laporan/ojt');
+        $this->template->load('template','laporan/ojt');
+    }
+
+    public function pdflaporan_ojt()
+    {
+        $this->load->view('laporan/laporanojt_pdf');
     }
     
 

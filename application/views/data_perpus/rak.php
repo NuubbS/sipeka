@@ -61,6 +61,7 @@ table = $('#table_rak').DataTable({
         'type': 'POST'
     },
     'processing': true,
+    // scrollY: '250px',
     'serverSide': true,
     'paging': true,
     'lengthChange': true,
