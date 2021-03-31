@@ -13,7 +13,8 @@
                     Tambahkan
                     Rak
                 </button>
-                <a href="<?= base_url('pages/pdflaporan_ojt'); ?>" class="btn btn-icon icon-left btn-success">
+                <a href="<?= base_url('printpdf/laporan_ojt'); ?>" target="__blank"
+                    class="btn btn-icon icon-left btn-success">
                     <i class="fas fa-print"></i>
                     Print PDF
                 </a>
