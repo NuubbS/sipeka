@@ -6,6 +6,7 @@ class Pages extends CI_Controller
 
     public function dashboard()
     {
+        check_not_login();
         // $this->template->load('nama template','isi content/main content');
         $this->template->load('template','petugas/dashboard');
     }

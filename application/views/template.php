@@ -96,7 +96,7 @@
                                     <i class="fas fa-cog"></i> Settings
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a href="#modal-logout" data-toggle="modal" class="dropdown-item has-icon text-danger">
+                                <a href="<?=site_url('auth/logout')?>" class="dropdown-item has-icon text-danger">
                                     <i class="fas fa-sign-out-alt"></i> Logout
                                 </a>
                             </div>
@@ -239,6 +239,8 @@
                             </ul>
                         </li>
                         <!-- admin menu -->
+                        <?php if($this->session->userdata('level') == 1 ) { ?>
+
                         <li class="menu-header">Pengaturan</li>
                         <li class="dropdown">
 
@@ -264,6 +266,7 @@
                                 <span>User Account</span>
                             </a>
                         </li>
+                        <?php } ?>
                     </ul>
                     <!-- sidebar menu -->
                     <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
