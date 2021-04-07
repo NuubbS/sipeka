@@ -82,12 +82,13 @@
                                 class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                                 <img alt="image" src="<?= base_url() ?>assets/img/avatar/default_user.png"
                                     class="rounded-circle mr-1">
-                                <div class="d-sm-none d-lg-inline-block">Hi, M. Hamdan Yusuf</div>
+                                <div class="d-sm-none d-lg-inline-block">Hi, <?= $this->sesi->user_login()->name; ?>
+                                </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
                                 <div class="dropdown-title">Terakhir login 5 jam yang lalu</div>
                                 <a href="<?= base_url() ?>profile" class="dropdown-item has-icon">
-                                    <i class="far fa-user"></i> Profile
+                                    <i class="fas fa-user"></i> Profile
                                 </a>
                                 <a href="features-activities.html" class="dropdown-item has-icon">
                                     <i class="fas fa-bolt"></i> Activities
@@ -129,24 +130,28 @@
                                 <span>Buku</span></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="nav-link" href="<?php echo base_url ('pages/buku'); ?>">Mata Kuliah</a>
+                                    <a class="nav-link" href="<?php echo base_url ('pages/mata_kuliah'); ?>">Mata
+                                        Kuliah</a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="<?php echo base_url ('pages/kategori'); ?>">Laporan Tugas
+                                    <a class="nav-link" href="<?php echo base_url ('pages/laporan_ta'); ?>">Laporan
+                                        Tugas
                                         Akhir</a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="<?php echo base_url ('pages/kondisi'); ?>">Laporan OJT</a>
+                                    <a class="nav-link" href="<?php echo base_url ('pages/laporan_ojt'); ?>">Laporan
+                                        OJT</a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="<?php echo base_url ('pages/kondisi'); ?>">Referensi</a>
+                                    <a class="nav-link" href="<?php echo base_url ('pages/referensi'); ?>">Referensi</a>
                                 </li>
                                 <li
                                     class="<?= $this->uri->segment(2) == 'rak' || $this->uri->segment(1) == null ? 'active' : '' ?>">
                                     <a class="nav-link" href="<?php echo base_url ('pages/rak'); ?>">Rak</a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="<?php echo base_url ('pages/tahun'); ?>">Tahun Terbit</a>
+                                    <a class="nav-link" href="<?php echo base_url ('pages/tahun_terbit'); ?>">Tahun
+                                        Terbit</a>
                                 </li>
                             </ul>
                         </li>
@@ -229,7 +234,7 @@
                         </li>
                         <li class="menu-header">Fitur</li>
                         <li class="dropdown">
-                            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-file"></i>
+                            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-file"></i>
                                 <span>Laporan</span></a>
                             <ul class="dropdown-menu">
                                 <li class=""><a class="nav-link"

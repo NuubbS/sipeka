@@ -13,7 +13,7 @@
                     Tambahkan
                     Rak
                 </button>
-                <a href="<?= base_url('printpdf/laporan_ojt'); ?>" target="__blank"
+                <a href="<?= base_url('data_perpus/rak_print'); ?>" target="__blank"
                     class="btn btn-icon icon-left btn-success">
                     <i class="fas fa-print"></i>
                     Print PDF
@@ -184,6 +184,13 @@ function edit(id) {
             $('#content_update').html(result);
 
         }
+    });
+}
+
+function print(id) {
+    $.ajax({
+        url: "<?= base_url("data_perpus/rak_print/") ?>" + id,
+        dataType: "html",
     });
 }
 

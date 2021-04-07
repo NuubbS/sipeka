@@ -78,9 +78,9 @@
 
 <body>
     <!-- atas -->
-    <table width="100%">
+    <table border="0" cellpadding="1" cellspacing="0" width="100%">
         <tr>
-            <td width="25%">
+            <td width="20%" style='text-align:right;'>
                 <img src="<?= 'assets/img/logo/logo akb hd.jpg'; ?>" width="105">
             </td>
             <td>
@@ -182,7 +182,7 @@
     <!-- bawah -->
     <table width="100%">
         <tr>
-            <td width="15%">
+            <td width="15%" style='text-align:right;'>
                 <img src="<?= 'assets/img/logo/logo akb hd.jpg'; ?>" width="85">
             </td>
             <td>

@@ -18,9 +18,9 @@ class Pages extends CI_Controller
 
     // data perpus
 
-    public function buku()
+    public function mata_kuliah()
 	{
-		$this->template->load('template','data_perpus/buku');
+		$this->template->load('template','data_perpus/mata_kuliah');
     }
     
     public function kategori()
