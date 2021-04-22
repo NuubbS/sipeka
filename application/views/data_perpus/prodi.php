@@ -2,16 +2,16 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Buku</h1>
+            <h1>Program Studi</h1>
         </div>
 
         <div class="section-body">
             <p class="section-lead">
                 <button onclick="tambah();" class="btn btn-icon icon-left btn-primary" data-toggle="modal"
-                    data-target="#tambah_buku">
+                    data-target="#tambah_prodi">
                     <i class="fas fa-rss-square"></i>
                     Tambahkan
-                    Buku
+                    Program Studi
                 </button>
             </p>
 
@@ -21,16 +21,11 @@
                     <div class="col-lg-12">
                         <div class="card table-responsive">
                             <div class="card-body">
-                                <table id="table_buku" class="table table-hover">
+                                <table id="table_prodi" class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
-                                            <th scope="col">Kode</th>
-                                            <th scope="col">Judul</th>
-                                            <th scope="col">Klasifikasi</th>
-                                            <th scope="col">Tahun</th>
-                                            <th scope="col">Jumlah</th>
-                                            <th scope="col">Dipinjam</th>
+                                            <th scope="col">Program Studi</th>
                                             <th scope="col">Tools</th>
                                         </tr>
                                     </thead>
@@ -54,9 +49,9 @@ var table;
 
 // $(document).ready(function() {
 
-table = $('#table_buku').DataTable({
+table = $('#table_prodi').DataTable({
     'ajax': {
-        'url': '<?= base_url('data_perpus/buku_fetch') ?>',
+        'url': '<?= base_url('data_perpus/prodi_fetch') ?>',
         'dataSrc': 'data',
         'type': 'POST'
     },
@@ -124,7 +119,7 @@ function saveData() {
         success: function(result) {
             message = result.messages;
             status = result.status;
-            $('#tambah_buku').modal('hide');
+            $('#tambah_prodi').modal('hide');
             $('input').val('');
             notifikasi(status, message);
             clear_form_elements('modal-body');
@@ -161,7 +156,7 @@ function tambah() {
         image: "",
         fontawesome: "fa fa-spinner fa-pulse"
     });
-    $('#tambah_buku').modal('show');
+    $('#tambah_prodi').modal('show');
     $.LoadingOverlay("hide");
 }
 
@@ -171,7 +166,7 @@ function edit(id) {
         fontawesome: "fa fa-spinner fa-pulse"
     });
     $.ajax({
-        url: "<?= base_url("data_perpus/buku_edit/") ?>" + id,
+        url: "<?= base_url("data_perpus/prodi_edit/") ?>" + id,
         dataType: "html",
         success: function(result) {
             $.LoadingOverlay("hide");
@@ -235,7 +230,7 @@ function hapus(id) {
                 image: "",
                 fontawesome: "fa fa-spinner fa-pulse"
             });
-            $.post('<?= base_url('data_perpus/buku_hapus') ?>', {
+            $.post('<?= base_url('data_perpus/prodi_hapus') ?>', {
                 'id': id
             }, function(data, textStatus, xhr) {
                 $.LoadingOverlay("hide");
@@ -267,13 +262,13 @@ function hapus(id) {
 
 
 function closes() {
-    $('#tambah_buku').modal('hide');
+    $('#tambah_prodi').modal('hide');
 }
 
 function detail(id) {
     $.LoadingOverlay("show");
     $.ajax({
-        url: "<?= base_url("data_perpus/buku_detail/") ?>" + id,
+        url: "<?= base_url("data_perpus/prodi_detail/") ?>" + id,
         dataType: "html",
         success: function(result) {
             $.LoadingOverlay("hide");
@@ -291,14 +286,14 @@ function closes_update() {
 <!-- script crud-->
 
 <!-- modal tambah -->
-<div class="modal fade" tabindex="-1" role="dialog" id="tambah_buku" aria-hidden="true" style="display: none;">
+<div class="modal fade" tabindex="-1" role="dialog" id="tambah_prodi" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Masukkan Data buku</h5> <button type="button" class="close" data-dismiss="modal"
                     aria-label="Close"> <span aria-hidden="true">×</span> </button>
             </div>
-            <form id="form_tambah" action="<?= base_url('data_perpus/buku_simpan'); ?>" method="post">
+            <form id="form_tambah" action="<?= base_url('data_perpus/prodi_simpan'); ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Judul</label>
@@ -306,7 +301,8 @@ function closes_update() {
                     </div>
                     <div class="form-group">
                         <label>Kategori</label>
-                        <input type="text" class="form-control" name="buku_keterangan" id="buku_keterangan" required="">
+                        <input type="text" class="form-control" name="prodi_keterangan" id="prodi_keterangan"
+                            required="">
                     </div>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
@@ -326,7 +322,7 @@ function closes_update() {
                 <h5 class="modal-title">Perbarui Data buku</h5> <button type="button" class="close" data-dismiss="modal"
                     aria-label="Close"> <span aria-hidden="true">×</span> </button>
             </div>
-            <form id="form_update" action="<?= base_url('data_perpus/buku_update'); ?>" method="post">
+            <form id="form_update" action="<?= base_url('data_perpus/prodi_update'); ?>" method="post">
                 <div class="modal-body" id="content_update">
                     <!-- isi form di folder lain -->
                 </div>
@@ -347,7 +343,7 @@ function closes_update() {
                 <h5 class="modal-title">Detail Buku</h5> <button type="button" class="close" data-dismiss="modal"
                     aria-label="Close"> <span aria-hidden="true">×</span> </button>
             </div>
-            <form id="form_detail" action="<?= base_url('date_perpus/buku_detail'); ?>" method="post">
+            <form id="form_detail" action="<?= base_url('date_perpus/prodi_detail'); ?>" method="post">
                 <div class="modal-body" id="content_detail">
 
                 </div>

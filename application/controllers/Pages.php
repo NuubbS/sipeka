@@ -18,19 +18,24 @@ class Pages extends CI_Controller
 
     // data perpus
 
-    public function mata_kuliah()
+    public function buku()
 	{
-		$this->template->load('template','data_perpus/mata_kuliah');
+		$this->template->load('template','data_perpus/buku');
     }
     
     public function kategori()
     {
-        $this->template->load('template','data_perpus/kategori');
+        $this->template->load('template','data_perpus/klasifikasi');
     }
     
-    public function kondisi()
+    public function lama_peminjaman()
     {
-        $this->template->load('template','data_perpus/kondisi');
+        $this->template->load('template','peraturan/lama_peminjaman');
+    }
+    
+    public function prodi()
+    {
+        $this->template->load('template','data_perpus/prodi');
     }
     
     public function rak()
