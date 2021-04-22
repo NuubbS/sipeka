@@ -21,7 +21,7 @@
                     <div class="col-lg-12">
                         <div class="card table-responsive">
                             <div class="card-body">
-                                <table id="table_prodi" class="table table-hover">
+                                <table id="table_kategori" class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th scope="col">#</th>
@@ -289,8 +289,8 @@ function closes_update() {
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Masukkan Data Kategori</h5> <button type="button" class="close" data-dismiss="modal"
-                    aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                <h5 class="modal-title">Masukkan Data Kategori</h5> <button type="button" class="close"
+                    data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
             </div>
             <form id="form_tambah" action="<?= base_url('data_perpus/kategori_simpan'); ?>" method="post">
                 <div class="modal-body">
@@ -313,8 +313,8 @@ function closes_update() {
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Perbarui Data Kategori</h5> <button type="button" class="close" data-dismiss="modal"
-                    aria-label="Close"> <span aria-hidden="true">×</span> </button>
+                <h5 class="modal-title">Perbarui Data Kategori</h5> <button type="button" class="close"
+                    data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
             </div>
             <form id="form_update" action="<?= base_url('data_perpus/kategori_update'); ?>" method="post">
                 <div class="modal-body" id="content_update">
