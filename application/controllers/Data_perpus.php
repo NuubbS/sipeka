@@ -380,6 +380,77 @@ $no++;
 }
 $this->datatables->render_no_keys($m);
 }
+
+// menyimpan data prodi
+function prodi_simpan()
+{
+// b0001 kode awal
+// RK01
+// user id
+$session_id = $this->sesi->user_login()->name;
+//table rak
+$prodi = $this->input->post('prodi');
+
+$data = [
+"prodi" => $prodi,
+"date_created" => date('Y-m-d H:i:s'),
+"created_by" => $session_id,
+];
+$insert_prodi_id = $this->dataperpus_m->simpan_prodi($data);
+if (@$insert_prodi_id) {
+$message['messages'] = "Berhasil Menambah Data Prodi....";
+$message['status'] = "1";
+} else {
+$message['messages'] = "Gagal Mengeksekusi Query Prodi";
+$message['status'] = "0";
+}
+echo json_encode($message);
+}
+
+// menghapus data buku
+function prodi_hapus()
+{
+$id = $this->input->post('id');
+$del = $this->dataperpus_m->hapus_prodi($id);
+if (@$del) {
+echo json_encode(true);
+} else {
+echo json_encode(false);
+}
+}
+
+function prodi_edit($id)
+{
+// $this->data['role'] = $this->main_m->view('user_role')->result();
+$this->data['prodi'] = $this->main_m->view_where('tb_prodi', ['prodi_id' => $id])->row();
+
+$this->load->view('form_update/prodi_update', $this->data);
+}
+
+// mengupdate prodi
+function prodi_update()
+{
+//table prodi
+
+// $prodi = 'admin';
+$prodi_id = $this->input->post('prodi_id');
+$prodi = $this->input->post('prodi');
+
+$data = [
+"prodi_id" => $prodi_id,
+"prodi" => $prodi,
+"date_updated" => date('Y-m-d H:i:s'),
+];
+$update_prodi_id = $this->dataperpus_m->update_prodi($prodi_id, $data);
+if (@$update_prodi_id) {
+$message['messages'] = "Berhasil Update Data Prodi";
+$message['status'] = "1";
+} else {
+$message['messages'] = "Gagal Update Data Prodi";
+$message['status'] = "0";
+}
+echo json_encode($message);
+}
 // program studi
 
 // kategori

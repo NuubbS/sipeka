@@ -290,19 +290,14 @@ function closes_update() {
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Masukkan Data buku</h5> <button type="button" class="close" data-dismiss="modal"
+                <h5 class="modal-title">Masukkan Data Prodi</h5> <button type="button" class="close" data-dismiss="modal"
                     aria-label="Close"> <span aria-hidden="true">×</span> </button>
             </div>
             <form id="form_tambah" action="<?= base_url('data_perpus/prodi_simpan'); ?>" method="post">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Judul</label>
-                        <input type="text" class="form-control" name="judul" id="judul" required="">
-                    </div>
-                    <div class="form-group">
-                        <label>Kategori</label>
-                        <input type="text" class="form-control" name="prodi_keterangan" id="prodi_keterangan"
-                            required="">
+                        <label>Prodi</label>
+                        <input type="text" class="form-control" name="prodi" id="prodi" required="">
                     </div>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">
@@ -319,7 +314,7 @@ function closes_update() {
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Perbarui Data buku</h5> <button type="button" class="close" data-dismiss="modal"
+                <h5 class="modal-title">Perbarui Data Prodi</h5> <button type="button" class="close" data-dismiss="modal"
                     aria-label="Close"> <span aria-hidden="true">×</span> </button>
             </div>
             <form id="form_update" action="<?= base_url('data_perpus/prodi_update'); ?>" method="post">

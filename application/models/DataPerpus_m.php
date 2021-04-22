@@ -42,4 +42,32 @@ class DataPerpus_m extends CI_Model
             return false;
         }
     }
+
+    // prodi
+    public function simpan_prodi($data)
+    {
+        if ($this->db->insert("tb_prodi", $data)) {
+            return $this->db->insert_id();
+        } else {
+            return false;
+        }
+    }
+
+    public function hapus_prodi($id)
+    {
+        if (@$this->db->where('prodi_id', $id)->delete("tb_prodi")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function update_prodi($prodi_id, $data)
+    {
+        if (@$this->db->where('prodi_id', $prodi_id)->update('tb_prodi', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
