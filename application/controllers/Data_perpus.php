@@ -407,7 +407,7 @@ $message['status'] = "0";
 echo json_encode($message);
 }
 
-// menghapus data buku
+// menghapus data prodi
 function prodi_hapus()
 {
 $id = $this->input->post('id');
@@ -474,6 +474,75 @@ $m[$key]['kategori_id'] = $no;
 $no++;
 }
 $this->datatables->render_no_keys($m);
+}
+function kategori_simpan()
+{
+// b0001 kode awal
+// RK01
+// user id
+$session_id = $this->sesi->user_login()->name;
+//table kategori
+$kategori = $this->input->post('kategori');
+
+$data = [
+"kategori" => $kategori,
+"date_created" => date('Y-m-d H:i:s'),
+"created_by" => $session_id,
+];
+$insert_kategori_id = $this->dataperpus_m->simpan_kategori($data);
+if (@$insert_kategori_id) {
+$message['messages'] = "Berhasil Menambah Data Kategori Buku....";
+$message['status'] = "1";
+} else {
+$message['messages'] = "Gagal Mengeksekusi Query Kategori Buku";
+$message['status'] = "0";
+}
+echo json_encode($message);
+}
+
+// menghapus data kategori
+function kategori_hapus()
+{
+$id = $this->input->post('id');
+$del = $this->dataperpus_m->hapus_kategori($id);
+if (@$del) {
+echo json_encode(true);
+} else {
+echo json_encode(false);
+}
+}
+
+function kategori_edit($id)
+{
+// $this->data['role'] = $this->main_m->view('user_role')->result();
+$this->data['kategori'] = $this->main_m->view_where('tb_kategori', ['kategori_id' => $id])->row();
+
+$this->load->view('form_update/kategori_update', $this->data);
+}
+
+// mengupdate kategori
+function kategori_update()
+{
+//table kategori
+
+// $kategori = 'admin';
+$kategori_id = $this->input->post('kategori_id');
+$kategori = $this->input->post('kategori');
+
+$data = [
+"kategori_id" => $kategori_id,
+"kategori" => $kategori,
+"date_updated" => date('Y-m-d H:i:s'),
+];
+$update_kategori_id = $this->dataperpus_m->update_kategori($kategori_id, $data);
+if (@$update_kategori_id) {
+$message['messages'] = "Berhasil Update Data Kategori Buku";
+$message['status'] = "1";
+} else {
+$message['messages'] = "Gagal Update Data Kategori Buku";
+$message['status'] = "0";
+}
+echo json_encode($message);
 }
 // kategori
 

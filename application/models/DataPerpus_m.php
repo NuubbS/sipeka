@@ -70,4 +70,32 @@ class DataPerpus_m extends CI_Model
             return false;
         }
     }
+
+    // kategori
+    public function simpan_kategori($data)
+    {
+        if ($this->db->insert("tb_kategori", $data)) {
+            return $this->db->insert_id();
+        } else {
+            return false;
+        }
+    }
+
+    public function hapus_kategori($id)
+    {
+        if (@$this->db->where('kategori_id', $id)->delete("tb_kategori")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function update_kategori($kategori_id, $data)
+    {
+        if (@$this->db->where('kategori_id', $kategori_id)->update('tb_kategori', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

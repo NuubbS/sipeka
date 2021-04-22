@@ -25,7 +25,7 @@ class Pages extends CI_Controller
     
     public function kategori()
     {
-        $this->template->load('template','data_perpus/klasifikasi');
+        $this->template->load('template','data_perpus/kategori');
     }
     
     public function lama_peminjaman()
