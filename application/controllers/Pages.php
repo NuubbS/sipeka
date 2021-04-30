@@ -3,7 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Pages extends CI_Controller
 {
-
+    public function __construct()
+    {
+        parent::__construct();
+        check_not_login();
+        $this->load->model(['kodeotomatis_m', 'dataperpus_m']);
+    }
+    
     public function dashboard()
     {
         check_not_login();
@@ -62,7 +68,14 @@ class Pages extends CI_Controller
     
     public function peminjaman()
     {
-        $this->template->load('template','peminjaman/peminjaman');
+        $data['buku'] = $this->main_m->view('tb_buku')->result();
+
+        $this->template->load('template','transaksi/peminjaman', $data);
+    }
+
+    public function pengembalian()
+    {
+        $this->template->load('template','transaksi/peminjaman');
     }
     
     // aplikasi

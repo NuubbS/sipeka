@@ -115,7 +115,7 @@
                     </div>
                     <ul class="sidebar-menu">
                         <!-- admin menu -->
-                        <?php if($this->session->userdata('level') == 1 ) { ?>
+                        <?php if($this->session->userdata('level_id') == 1 ) { ?>
                         <li class="menu-header">Dashboard</li>
                         <li
                             class="<?= $this->uri->segment(2) == 'dashboard' || $this->uri->segment(1) == null ? 'active' : '' ?>">
@@ -177,13 +177,13 @@
                         </li>
                         <li class="menu-header">Transaki</li>
                         <li class="">
-                            <a class="nav-link" href="<?= base_url() ?>tutorial/crud">
+                            <a class="nav-link" href="<?= base_url() ?>pages/peminjaman">
                                 <i class="fas fa-upload fa-fw"></i>
                                 <span>Peminjaman</span>
                             </a>
                         </li>
                         <li class="">
-                            <a class="nav-link" href="<?= base_url() ?>tutorial/chart">
+                            <a class="nav-link" href="<?= base_url() ?>pages/pengembalian">
                                 <i class="fas fa-download fa-fw"></i>
                                 <span>Pengembalian</span>
                             </a>
@@ -228,6 +228,7 @@
                         <?php } ?>
                         <!-- admin menu -->
                         <!-- member menu -->
+                        <?php if($this->session->userdata('level_id') == 2 ) { ?>
                         <li class="menu-header">Dashboard</li>
                         <li
                             class="<?= $this->uri->segment(2) == 'buku' || $this->uri->segment(1) == null ? 'active' : '' ?>">
@@ -236,6 +237,7 @@
                                 <span>Data Buku</span>
                             </a>
                         </li>
+                        <?php } ?>
                         <!-- member menu -->
                     </ul>
                     <!-- sidebar menu -->

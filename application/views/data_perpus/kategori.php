@@ -18,7 +18,7 @@
             <!-- animasi table -->
             <div class="animate__animated animate__fadeInUp animate__fast">
                 <div class="row">
-                    <div class="col-lg-12">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="card table-responsive">
                             <div class="card-body">
                                 <table id="table_kategori" class="table table-hover">
