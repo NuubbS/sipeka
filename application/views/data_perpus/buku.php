@@ -302,11 +302,11 @@ function closes_update() {
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Judul</label>
-                        <input type="text" class="form-control" name="judul" id="judul" required="">
+                        <input type="text" class="form-control" name="buku" id="buku" required="">
                     </div>
                     <div class="form-group">
                         <label>Kategori</label>
-                        <input type="text" class="form-control" name="buku_keterangan" id="buku_keterangan" required="">
+                        <input type="text" class="form-control" name="kategori_id" id="kategori_id" required="">
                     </div>
                 </div>
                 <div class="modal-footer bg-whitesmoke br">

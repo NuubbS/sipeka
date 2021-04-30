@@ -98,4 +98,32 @@ class DataPerpus_m extends CI_Model
             return false;
         }
     }
+
+    // buku
+    public function simpan_buku($data)
+    {
+        if ($this->db->insert("tb_buku", $data)) {
+            return $this->db->insert_id();
+        } else {
+            return false;
+        }
+    }
+
+    public function hapus_buku($id)
+    {
+        if (@$this->db->where('buku_id', $id)->delete("tb_buku")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function update_buku($buku_id, $data)
+    {
+        if (@$this->db->where('buku_id', $buku_id)->update('tb_buku', $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

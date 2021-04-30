@@ -204,7 +204,7 @@ function buku_simpan()
 // b0001 kode awal
 // RK01
 $table = "tb_buku";
-$field = "buku_kode";
+$field = "kode_buku";
 
 // kode tebukuhir
 $lastKode = $this->kodeotomatis_m->getMax($table, $field);
@@ -221,12 +221,12 @@ $session_id = 'admin';
 //table buku
 $kode = $newKode;
 $nama = $this->input->post('buku_nama');
-$keterangan = $this->input->post('buku_keterangan');
+$keterangan = $this->input->post('kategori_id');
 
 $data = [
-"buku_kode" => $kode,
-"buku_nama" => $nama,
-"buku_keterangan" => $keterangan,
+"kode_buku" => $kode,
+"nama_buku" => $nama,
+"kategori_id" => $keterangan,
 "date_created" => date('Y-m-d H:i:s'),
 "created_by" => $session_id,
 ];
@@ -299,13 +299,13 @@ function buku_update()
 //table buku
 // $buku_id = 'admin';
 $buku_id = $this->input->post('buku_id');
-$nama = $this->input->post('buku_nama');
-$keterangan = $this->input->post('buku_keterangan');
+$nama = $this->input->post('nama_buku');
+$keterangan = $this->input->post('kategori_id');
 
 $data = [
 "buku_id" => $buku_id,
-"buku_nama" => $nama,
-"buku_keterangan" => $keterangan,
+"nama_buku" => $nama,
+"kategori_id" => $keterangan,
 "date_updated" => date('Y-m-d H:i:s'),
 ];
 $update_buku_id = $this->dataperpus_m->update_buku($buku_id, $data);
