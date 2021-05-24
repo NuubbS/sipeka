@@ -174,13 +174,14 @@ echo json_encode(false);
 // Untuk menampilkan data buku
 function buku_fetch()
 {
-$this->datatables->search('tb_buku.buku_id, tb_buku.kode_buku, tb_buku.judul, tb_kategori.kategori, tb_buku.tahun,
-tb_buku.jumlah, tb_buku.dipinjam');
-$this->datatables->select('tb_buku.buku_id, tb_buku.kode_buku, tb_buku.judul, tb_kategori.kategori, tb_buku.tahun,
-tb_buku.jumlah, tb_buku.dipinjam');
+$this->datatables->search('tb_buku.buku_id, tb_buku.judul, tb_kategori.kategori, tb_prodi.prodi, tb_rak.rak_nama');
+$this->datatables->select('tb_buku.buku_id, tb_buku.judul, tb_kategori.kategori, tb_prodi.prodi, tb_rak.rak_nama');
 $this->datatables->from('tb_buku');
 $this->datatables->join('tb_kategori', 'tb_buku.kategori_id = tb_kategori.kategori_id');
-$this->datatables->order_by('date_created', 'DESC');
+$this->datatables->join('tb_prodi', 'tb_buku.prodi_id = tb_prodi.prodi_id');
+$this->datatables->join('tb_rak', 'tb_buku.rak_id = tb_rak.rak_id');
+// $this->datatables->where('tb_buku.jumlah !=', '0');
+$this->datatables->order_by('tb_buku.judul', 'DESC');
 $m = $this->datatables->get();
 $no = 1;
 foreach ($m as $key => $value) {
@@ -189,8 +190,35 @@ $act .= sprintf('<button onclick="detail(%s)" class="btn btn-icon btn-sm btn-inf
     data-placement="top" title="Detail buku"><i class="fas fa-user-edit"></i></button>', $value['buku_id']);
 $act .= sprintf('<button onclick="edit(%s)" class="btn btn-icon btn-sm btn-primary m-1" data-toggle="tooltip"
     data-placement="top" title="Edit buku"><i class="fas fa-user-edit"></i></button>', $value['buku_id']);
-$act .= sprintf('<button onclick="hapus(%s)" class="btn btn-icon btn-sm btn-danger m-1" data-toggle="tooltip"
-    data-placement="top" title="Hapus buku"><i class="fas fa-trash-alt"></button>', $value['buku_id']);
+// $act .= sprintf('<button onclick="hapus(%s)" class="btn btn-icon btn-sm btn-danger m-1" data-toggle="tooltip"
+//     data-placement="top" title="Hapus buku"><i class="fas fa-trash-alt"></button>', $value['buku_id']);
+$m[$key]['as'] = $act;
+$m[$key]['buku_id'] = $no;
+$no++;
+}
+$this->datatables->render_no_keys($m);
+}
+
+// Untuk menampilkan data buku
+function bukumember_fetch()
+{
+$this->datatables->search('tb_buku.buku_id, tb_buku.judul, tb_kategori.kategori, tb_prodi.prodi, tb_rak.rak_nama');
+$this->datatables->select('tb_buku.buku_id, tb_buku.judul, tb_kategori.kategori, tb_prodi.prodi, tb_rak.rak_nama');
+$this->datatables->from('tb_buku');
+$this->datatables->join('tb_kategori', 'tb_buku.kategori_id = tb_kategori.kategori_id');
+$this->datatables->join('tb_prodi', 'tb_buku.prodi_id = tb_prodi.prodi_id');
+$this->datatables->join('tb_rak', 'tb_buku.rak_id = tb_rak.rak_id');
+// $this->datatables->where('tb_buku.jumlah !=', '0');
+// $this->datatables->order_by('date_created', 'DESC');
+$m = $this->datatables->get();
+$no = 1;
+foreach ($m as $key => $value) {
+$act = '';
+$act .= sprintf('<button onclick="detail(%s)" class="btn btn-icon btn-sm btn-info m-1" data-toggle="tooltip" data-placement="top" title="Detail buku"><i class="fas fa-user-edit"></i></button>', $value['buku_id']);
+// $act .= sprintf('<button onclick="edit(%s)" class="btn btn-icon btn-sm btn-primary m-1" data-toggle="tooltip"
+//     data-placement="top" title="Edit buku"><i class="fas fa-user-edit"></i></button>', $value['buku_id']);
+// $act .= sprintf('<button onclick="hapus(%s)" class="btn btn-icon btn-sm btn-danger m-1" data-toggle="tooltip"
+//     data-placement="top" title="Hapus buku"><i class="fas fa-trash-alt"></button>', $value['buku_id']);
 $m[$key]['as'] = $act;
 $m[$key]['buku_id'] = $no;
 $no++;
@@ -208,25 +236,33 @@ $field = "kode_buku";
 
 // kode tebukuhir
 $lastKode = $this->kodeotomatis_m->getMax($table, $field);
-// mengambil 2 kabukuter tebukuhir
-$noUrut = (int) substr($lastKode, -2, 2);
+// mengambil 4 kabukuter tebukuhir
+$noUrut = (int) substr($lastKode, -4, 4);
 $noUrut++;
 
 $str = "B";
-$newKode = $str . sprintf('%02s', $noUrut);
+$newKode = $str . sprintf('%04s', $noUrut);
 // membuat kode otomatis
-
 // user id
-$session_id = 'admin';
+$session_id = $this->sesi->user_login()->name;
 //table buku
 $kode = $newKode;
-$nama = $this->input->post('buku_nama');
-$keterangan = $this->input->post('kategori_id');
+$judul = $this->input->post('judul');
+$kategori_id = $this->input->post('kategori_id');
+$prodi_id = $this->input->post('prodi_id');
+$rak_id = $this->input->post('rak_id');
+$tahun = $this->input->post('tahun');
+$jumlah = $this->input->post('jumlah');
 
 $data = [
 "kode_buku" => $kode,
-"nama_buku" => $nama,
-"kategori_id" => $keterangan,
+"judul" => $judul,
+"kategori_id" => $kategori_id,
+"prodi_id" => $prodi_id,
+"rak_id" => $rak_id,
+"tahun" => $tahun,
+"jumlah" => $jumlah,
+"dipinjam" => 0,
 "date_created" => date('Y-m-d H:i:s'),
 "created_by" => $session_id,
 ];
@@ -245,9 +281,12 @@ echo json_encode($message);
 function buku_edit($id)
 {
 // $this->data['role'] = $this->main_m->view('user_role')->result();
-$this->data['buku'] = $this->main_m->view_where('tb_buku', ['buku_id' => $id])->row();
+$data['kategori'] = $this->main_m->view('tb_kategori')->result();
+$data['prodi']= $this->main_m->view('tb_prodi')->result();
+$data['rak']= $this->main_m->view('tb_rak')->result();
+$data['buku'] = $this->main_m->view_where('tb_buku', ['buku_id' => $id])->row();
 
-$this->load->view('form_update/buku_update', $this->data);
+$this->load->view('form_update/buku_update', $data);
 }
 
 // menampikan data sesuai id
@@ -299,13 +338,21 @@ function buku_update()
 //table buku
 // $buku_id = 'admin';
 $buku_id = $this->input->post('buku_id');
-$nama = $this->input->post('nama_buku');
-$keterangan = $this->input->post('kategori_id');
+$judul = $this->input->post('judul');
+$kategori = $this->input->post('kategori_id');
+$prodi_id = $this->input->post('prodi_id');
+$rak_id = $this->input->post('rak_id');
+$tahun = $this->input->post('tahun');
+$jumlah = $this->input->post('jumlah');
 
 $data = [
 "buku_id" => $buku_id,
-"nama_buku" => $nama,
-"kategori_id" => $keterangan,
+"judul" => $judul,
+"kategori_id" => $kategori,
+"prodi_id" => $prodi_id,
+"rak_id" => $rak_id,
+"tahun" => $tahun,
+"jumlah" => $jumlah,
 "date_updated" => date('Y-m-d H:i:s'),
 ];
 $update_buku_id = $this->dataperpus_m->update_buku($buku_id, $data);

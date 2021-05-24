@@ -23,7 +23,6 @@
     </link>
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/bootstrap/css/bootstrap-social.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/toast/iziToast.css">
-    <link href="<?= base_url() ?>assets/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/style.css">
@@ -115,121 +114,6 @@
                         <a href="#"><img src="<?= base_url('assets/img/logo/favicon.png'); ?>" width="50"></a>
                     </div>
                     <ul class="sidebar-menu">
-                        <!-- admin menu -->
-                        <?php if($this->session->userdata('level_id') == 1 ) { ?>
-                        <li class="menu-header">Dashboard</li>
-                        <li
-                            class="<?= $this->uri->segment(2) == 'dashboard' || $this->uri->segment(1) == null ? 'active' : '' ?>">
-                            <a class="nav-link" href="<?= base_url('pages/dashboard') ?>">
-                                <i class="fas fa-fire"></i>
-                                <span>Dashboard</span>
-                            </a>
-                        </li>
-                        <li class="menu-header">DATA PERPUSTAKAAN</li>
-                        <!-- dropdown -->
-                        <li
-                            class="nav-item dropdown <?= $this->uri->segment(2) == "rak" || $this->uri->segment(1) == "buku" ? 'active' : '' ?>">
-                            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-lock"></i>
-                                <span>Master Data</span></a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a class="nav-link" href="<?php echo base_url ('pages/prodi'); ?>">Program Studi</a>
-                                </li>
-                                <li>
-                                    <a class="nav-link" href="<?php echo base_url ('pages/kategori'); ?>">Kategori
-                                        Buku</a>
-                                </li>
-                                <li
-                                    class="<?= $this->uri->segment(2) == 'rak' || $this->uri->segment(1) == null ? 'active' : '' ?>">
-                                    <a class="nav-link" href="<?php echo base_url ('pages/rak'); ?>">Rak</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li
-                            class="<?= $this->uri->segment(2) == 'buku' || $this->uri->segment(1) == null ? 'active' : '' ?>">
-                            <a class="nav-link" href="<?= base_url('pages/buku') ?>">
-                                <i class="fas fa-book"></i>
-                                <span>Buku</span>
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
-                                    class="fab fa-wpforms"></i> <span>Peraturan</span></a>
-                            <ul class="dropdown-menu">
-                                <li class=""><a class="nav-link"
-                                        href="<?php echo base_url ('pages/lama_peminjaman'); ?>">Lama Peminjaman</a>
-                                </li>
-                                <li>
-                                    <a class="nav-link" href="#">Denda</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="">
-                            <a class="nav-link" href="<?= base_url() ?>pages/anggota">
-                                <i class="fas fa-users fa-fw"></i>
-                                <span>Anggota</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="nav-link" href="<?= base_url() ?>pages/petugas">
-                                <i class="fas fa-user-shield fa-fw"></i>
-                                <span>Petugas</span>
-                            </a>
-                        </li>
-                        <li class="menu-header">Transaki</li>
-                        <li class="">
-                            <a class="nav-link" href="<?= base_url() ?>pages/peminjaman">
-                                <i class="fas fa-upload fa-fw"></i>
-                                <span>Peminjaman</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="nav-link" href="<?= base_url() ?>pages/pengembalian">
-                                <i class="fas fa-download fa-fw"></i>
-                                <span>Pengembalian</span>
-                            </a>
-                        </li>
-                        <li class="menu-header">Extra</li>
-                        <li class="dropdown">
-                            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-file"></i>
-                                <span>Laporan</span></a>
-                            <ul class="dropdown-menu">
-                                <li class=""><a class="nav-link"
-                                        href="<?php echo base_url ('pages/laporan_ojt'); ?>">OJT</a></li>
-                                <li><a class="nav-link" href="<?php echo base_url ('pages/anggota'); ?>">Tugas Akhir</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="menu-header">Pengaturan</li>
-                        <!-- <li class="dropdown">
-
-                            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
-                                    class="fas fa-laptop-code"></i> <span>Aplikasi</span></a>
-                            <ul class="dropdown-menu">
-                                <li class=""><a class="nav-link"
-                                        href="<?php echo base_url ('pages/maintenance'); ?>">Maintenance Aplikasi</a>
-                                </li>
-                                <li><a class="nav-link" href="<?php echo base_url ('pages/kontak'); ?>">Kontak
-                                        Developer</a></li>
-                            </ul>
-                        </li>
-                        <li class="">
-                            <a class="nav-link" href="<?= base_url() ?>webconfig">
-                                <i class="fas fa-money-bill-wave"></i>
-                                <span>Denda</span>
-                            </a>
-                        </li> -->
-                        <li class="">
-                            <a class="nav-link" href="<?= base_url() ?>user/user_account">
-                                <i class="fas fa-users-cog"></i>
-                                <span>Profil Saya</span>
-                            </a>
-                        </li>
-                        <?php } ?>
-                        <!-- admin menu -->
-                        <!-- member menu -->
-                        <!-- <?php if($this->session->userdata('level_id') == 2 ) { ?>
                         <li class="menu-header">Dashboard</li>
                         <li
                             class="<?= $this->uri->segment(2) == 'buku' || $this->uri->segment(1) == null ? 'active' : '' ?>">
@@ -238,8 +122,20 @@
                                 <span>Data Buku</span>
                             </a>
                         </li>
-                        <?php } ?> -->
-                        <!-- member menu -->
+                        <li
+                            class="<?= $this->uri->segment(2) == 'buku' || $this->uri->segment(1) == null ? 'active' : '' ?>">
+                            <a class="nav-link" href="<?= base_url('pages/buku') ?>">
+                                <i class="fas fa-history"></i>
+                                <span>Riwayat Peminjaman</span>
+                            </a>
+                        </li>
+                        <li
+                            class="<?= $this->uri->segment(2) == 'buku' || $this->uri->segment(1) == null ? 'active' : '' ?>">
+                            <a class="nav-link" href="<?= base_url('pages/buku') ?>">
+                                <i class="fas fa-user"></i>
+                                <span>Profil Saya</span>
+                            </a>
+                        </li>
                     </ul>
                     <!-- sidebar menu -->
                     <div class="mt-4 mb-4 p-3 hide-sidebar-mini">
@@ -288,11 +184,6 @@
     <!-- Template JS File -->
     <script src="<?= base_url() ?>assets/js/scripts.js"></script>
     <script src="<?= base_url() ?>assets/js/custom.js"></script>
-    <script src="<?= base_url() ?>assets/datatables/jquery.dataTables.min.js"></script>
-    <script src="<?= base_url() ?>assets/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <!-- <script src="<?= base_url() ?>assets/datatables/datatables-demo.js"></script> -->
 
     <!-- Page Specific JS File -->
     <script src="<?= base_url() ?>assets/js/page/index.js"></script>
@@ -329,7 +220,6 @@
             selector: '[data-toggle=tooltip]'
         });
         $(".preloader").fadeOut();
-        $('#tableclient').DataTable()
     });
     </script>
 </body>

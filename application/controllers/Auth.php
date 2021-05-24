@@ -21,11 +21,19 @@ class Auth extends CI_Controller
 					'user_id' => $row->user_id,
 					'level_id' => $row->level_id
 				);
+				if($params['level_id'] == 1){
 				$this->session->set_userdata($params);
 				echo "<script>
 						alert('Selamat, login berhasil');
 						window.location='".site_url('pages/dashboard')."';
 					</script>";
+				}else if($params['level_id'] == 2){
+					$this->session->set_userdata($params);
+					echo "<script>
+						alert('Selamat, login berhasil');
+						window.location='".site_url('pages/dashboard_m')."';
+					</script>";
+				}
 			} else {
 				echo "<script>
 						alert('Login gagal, username / password salah');

@@ -58,6 +58,18 @@ class Main_m extends CI_Model
         return $query->result_array();
     }
 
+    public function view_join_three_unwhere($table1, $table2, $table3,$table4, $field, $field1, $field2, $order, $ordering, $baris, $dari)
+    {
+        $this->db->select('*');
+        $this->db->from($table1);
+        $this->db->join($table2, $table1 . '.' . $field . '=' . $table2 . '.' . $field);
+        $this->db->join($table3, $table1 . '.' . $field1 . '=' . $table3 . '.' . $field1);
+        $this->db->join($table4, $table1 . '.' . $field2 . '=' . $table4 . '.' . $field2);
+        $this->db->order_by($order, $ordering);
+        $this->db->limit($dari, $baris);
+        return $this->db->get();
+    }
+
     public function view_join_one($table1, $table2, $field, $order, $ordering)
     {
         $this->db->select('*');

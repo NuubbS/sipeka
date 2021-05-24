@@ -1,133 +1,136 @@
-<!-- modal update -->
-<div class="modal fade" tabindex="-1" role="dialog" id="update_buku" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Perbarui Data buku</h5> <button type="button" class="close" data-dismiss="modal"
-                    aria-label="Close"> <span aria-hidden="true">×</span> </button>
-            </div>
-            <form id="form_update" action="<?= base_url('data_perpus/buku_update'); ?>" method="post">
-                <div class="modal-body" id="content_update">
-                    <!-- isi form di folder lain -->
-                </div>
-                <div class="modal-footer bg-whitesmoke br">
-                    <button type="button" class="btn btn-danger" onclick="closes_update()">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="updateData()">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- modal update -->
-
-<!-- modal tambah -->
-<div class="modal fade" tabindex="-1" role="dialog" id="tambah_buku" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Masukkan Data buku</h5> <button type="button" class="close" data-dismiss="modal"
-                    aria-label="Close"> <span aria-hidden="true">×</span> </button>
-            </div>
-            <form id="form_tambah" action="<?= base_url('data_perpus/buku_simpan'); ?>" method="post">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>Judul</label>
-                        <input type="text" class="form-control" name="judul" id="judul" required="">
-                    </div>
-                    <div class="form-group row">
-                        <div class='col-6'>
-                            <label for="kategori_id">Kategori</label>
-                            <select id="kategori_id" name="kategori_id" class="form-control">
-                                <?php foreach ($kategori as $key => $data) { ?>
-                                <option value="<?= $data->kategori_id; ?>"><?= $data->kategori ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                        <div class='col-6'>
-                            <label for="prodi_id">Program Studi</label>
-                            <select id="prodi_id" name="prodi_id" class="form-control">
-                                <?php foreach ($prodi as $key => $data) { ?>
-                                <option value="<?= $data->prodi_id; ?>"><?= $data->prodi ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class='col-4'><label for="rak_id">Rak Penyimpanan</label>
-                            <select id="rak_id" name="rak_id" class="form-control">
-                                <?php foreach ($rak as $key => $data) { ?>
-                                <option value="<?= $data->rak_id; ?>"><?= $data->rak_nama ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                        <div class='col-4'><label>Tahun</label>
-                            <input type="text" class="form-control" name="tahun" id="tahun" required="">
-                        </div>
-                        <div class='col-4'><label>Jumlah</label>
-                            <input type="text" class="form-control" name="jumlah" id="jumlah" required="">
-                        </div>
-                    </div>
-                    <div class="modal-footer bg-whitesmoke br">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
-                        <button type="button" onclick="saveData()" class="btn btn-primary">Simpan Data Buku</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- modal tambah-->
-
 <!-- Main Content -->
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Buku</h1>
+            <h1>Daftar Buku</h1>
         </div>
-
-        <div class="section-body">
-
-
-            <p class="section-lead">
-                <button onclick="tambah();" class="btn btn-icon icon-left btn-primary" data-toggle="modal"
-                    data-target="#tambah_buku">
-                    <i class="fas fa-rss-square"></i>
-                    Tambahkan
-                    Buku
-                </button>
-            </p>
-
-        </div>
-        <!-- animasi table -->
-        <div class="animate__animated animate__fadeInUp animate__fast">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card table-responsive">
-                        <div class="card-body">
-                            <table id="table_buku" class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Judul</th>
-                                        <th scope="col">Kategori</th>
-                                        <th scope="col">Prodi</th>
-                                        <!-- <th scope="col">Tahun</th>
-                                        <th scope="col">Jumlah</th> -->
-                                        <th scope="col">Rak</th>
-                                        <th scope="col">Tools</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                            </table>
+        <!-- pintasan carousel -->
+        <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon bg-primary">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="card-header">
+                                        <h4>Anggota</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        10
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon bg-info">
+                                    <i class="fas fa-user-shield"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="card-header">
+                                        <h4>Petugas</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        100
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon bg-success">
+                                    <i class="fas fa-upload"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="card-header">
+                                        <h4>Buku Dipinjam</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        Rp. 100.000.000
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon bg-warning">
+                                    <i class="fas fa-download"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="card-header">
+                                        <h4>Buku Dikembalikan</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        Rp. 100.000.000
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="card card-statistic-1">
+                                <div class="card-icon bg-success">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div class="card-wrap">
+                                    <div class="card-header">
+                                        <h4>Buku</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        50 Buku
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-</div>
-</section>
+        <!-- pintasan carousel -->
+        <!-- data tabel -->
+        <div class="row">
+            <div class="col">
+                <!-- animasi table -->
+                <div class="animate__animated animate__fadeInUp animate__fast">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card table-responsive">
+                                <div class="card-body">
+                                    <table id="table_buku" class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Judul</th>
+                                                <th scope="col">Kategori</th>
+                                                <th scope="col">Prodi</th>
+                                                <!-- <th scope="col">Tahun</th>
+                                        <th scope="col">Jumlah</th> -->
+                                                <th scope="col">Rak</th>
+                                                <th scope="col">Tools</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- data tabel -->
+    </section>
 </div>
 <!-- main content -->
 
@@ -139,7 +142,7 @@ var table;
 
 table = $('#table_buku').DataTable({
     'ajax': {
-        'url': '<?= base_url('data_perpus/buku_fetch') ?>',
+        'url': '<?= base_url('data_perpus/bukumember_fetch') ?>',
         'dataSrc': 'data',
         'type': 'POST'
     },

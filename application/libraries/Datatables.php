@@ -88,6 +88,16 @@ class Datatables
         return $this;
     }
 
+    public function where_out($where, $val = '')
+    {
+        if (is_array($where)) {
+            $this->where_not[] = $where;
+        } else {
+            $this->where_not[] = [$where => $val];
+        }
+        return $this;
+    }
+
     public function or_where($where, $val = '')
     {
         if (is_array($where)) {

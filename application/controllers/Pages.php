@@ -14,7 +14,16 @@ class Pages extends CI_Controller
     {
         check_not_login();
         // $this->template->load('nama template','isi content/main content');
-        $this->template->load('template','petugas/dashboard');
+        // $data['buku'] = $this->main_m->view_join_three_unwhere('user', 'user_role', 'status', 'role_id', 'status_id', 'user_id', 'desc', 0, 4);
+        $data['buku'] = $this->main_m->view_join_three_unwhere('tb_buku', 'tb_kategori', 'tb_prodi', 'tb_rak', 'kategori_id', 'prodi_id', 'rak_id', 'buku_id', 'desc', 0, 4);
+        $this->template->load('template','petugas/dashboard', $data);
+    }
+
+    public function dashboard_m()
+    {
+        check_not_login();
+        // $this->template->load('nama template','isi content/main content');
+    $this->template->load('template_m','member/dashboard');
     }
     
     public function coba()
@@ -26,7 +35,10 @@ class Pages extends CI_Controller
 
     public function buku()
 	{
-		$this->template->load('template','data_perpus/buku');
+        $data['kategori'] = $this->main_m->view('tb_kategori')->result();
+        $data['prodi']= $this->main_m->view('tb_prodi')->result();
+        $data['rak']= $this->main_m->view('tb_rak')->result();
+		$this->template->load('template','data_perpus/buku', $data);
     }
     
     public function kategori()
@@ -68,8 +80,9 @@ class Pages extends CI_Controller
     
     public function peminjaman()
     {
-        $data['buku'] = $this->main_m->view('tb_buku')->result();
+        // $data['buku'] = $this->main_m->view('tb_buku')->result();
 
+        $data['anggota'] = $this->main_m->view('user')->result();
         $this->template->load('template','transaksi/peminjaman', $data);
     }
 

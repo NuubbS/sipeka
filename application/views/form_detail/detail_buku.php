@@ -4,6 +4,10 @@
 <table id="table_buku" class="table table-hover">
     <thead>
         <tr>
+            <th scope="col">Kode Buku</th>
+            <th scope="col">Tahun</th>
+            <th scope="col">Jumlah</th>
+            <th scope="col">Dipinjam</th>
             <th scope="col">Ditambahkan</th>
             <th scope="col">Diubah</th>
             <th scope="col">Dibuat Oleh</th>
@@ -11,6 +15,10 @@
     </thead>
     <tbody>
         <tr>
+            <td><?= $buku->kode_buku?></td>
+            <td><?= $buku->tahun?></td>
+            <td><?= $buku->jumlah?></td>
+            <td><?= $buku->dipinjam?></td>
             <td><?= $buku->date_created ?></td>
             <td><?= $buku->date_updated ?></td>
             <td><?= $buku->created_by ?></td>
