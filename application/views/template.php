@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/OwlCarousel/dist/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/OwlCarousel/dist/assets/owl.theme.default.min.css">
     <!-- <link rel="stylesheet" src="<?= base_url() ?>assets/plugins/toast/sweetalert2.min.css"> -->
+    <link rel="stylesheet" href="<?= base_url() ?>assets/vendor/select2/css/select2.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="<?= base_url('assets/vendor/select2-bootstrap4-theme/select2-bootstrap4.min.css') ?>">
     </link>
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/bootstrap/css/bootstrap-social.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/toast/iziToast.css">
@@ -31,11 +34,39 @@
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/components.css">
 
     <!-- General JS Scripts -->
-    <script src="<?= base_url() ?>assets/plugins/jquery/jquery-3.5.1.min.js"></script>
+    <script src="<?= base_url() ?>assets/plugins/jquery/jquery-3.6.0.min.js"></script>
+    <script src="<?= base_url() ?>assets/vendor/select2/js/select2.full.js"></script>
+    <script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $(".select3").select2({
+            placeholder: 'anjay'
+        });
+        $(".select2-multiple").select2({
+            placeholder: 'anjay'
+        });
+        $('#mySelect2').select2({
+            ajax: {
+                url: 'https://api.github.com/orgs/select2/repos',
+                data: function(params) {
+                    var query = {
+                        search: params.term,
+                        type: 'public'
+                    }
+
+                    // Query parameters will be ?search=[term]&type=public
+                    return query;
+                }
+            }
+        });
+    });
+    </script>
     <script src="<?= base_url() ?>assets/js/datatables.min.js"></script>
     <script src="<?= base_url() ?>assets/plugins/loading-overlay/loadingoverlay.js"></script>
     <script src="<?= base_url() ?>assets/plugins/popper.js"></script>
     <script src="<?= base_url() ?>assets/plugins/tooltip.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> -->
 
     <style type="text/css">
     .preloader {
@@ -83,7 +114,7 @@
                                 class="nav-link dropdown-toggle nav-link-lg nav-link-user">
                                 <img alt="image" src="<?= base_url() ?>assets/img/avatar/default_user.png"
                                     class="rounded-circle mr-1">
-                                <div class="d-sm-none d-lg-inline-block">Hi, <?= $this->sesi->user_login()->name; ?>
+                                <div class="d-sm-none d-lg-inline-block">Hi, <?= $this->sesi->user_login()->nama; ?>
                                 </div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
@@ -120,7 +151,7 @@
                         <li class="menu-header">Dashboard</li>
                         <li
                             class="<?= $this->uri->segment(2) == 'dashboard' || $this->uri->segment(1) == null ? 'active' : '' ?>">
-                            <a class="nav-link" href="<?= base_url('pages/dashboard') ?>">
+                            <a class="nav-link" href="<?= base_url('administrator/dashboard') ?>">
                                 <i class="fas fa-fire"></i>
                                 <span>Dashboard</span>
                             </a>
@@ -133,21 +164,37 @@
                                 <span>Master Data</span></a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="nav-link" href="<?php echo base_url ('pages/prodi'); ?>">Program Studi</a>
+                                    <a class="nav-link" href="<?php echo base_url ('administrator/prodi'); ?>">Program
+                                        Studi</a>
                                 </li>
                                 <li>
-                                    <a class="nav-link" href="<?php echo base_url ('pages/kategori'); ?>">Kategori
+                                    <a class="nav-link"
+                                        href="<?php echo base_url ('administrator/kategori'); ?>">Kategori
                                         Buku</a>
                                 </li>
                                 <li
                                     class="<?= $this->uri->segment(2) == 'rak' || $this->uri->segment(1) == null ? 'active' : '' ?>">
-                                    <a class="nav-link" href="<?php echo base_url ('pages/rak'); ?>">Rak</a>
+                                    <a class="nav-link" href="<?php echo base_url ('administrator/rak'); ?>">Rak</a>
                                 </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-book"></i>
+                                <span>Buku</span></a>
+                            <ul class="dropdown-menu">
+                                <?php foreach ($this->user_m->
+                                menu_kategori() as $key => $value) : ?>
+                                <!-- <li class="<?= $this->uri->segment(2) == 'referensi' ? 'active' : '' ?>"> -->
+                                <li>
+                                    <a class="nav-link"
+                                        href="<?= base_url ('administrator/') . $value->link; ?>"><?= $value->kategori; ?></a>
+                                </li>
+                                <?php endforeach ?>
                             </ul>
                         </li>
                         <li
                             class="<?= $this->uri->segment(2) == 'buku' || $this->uri->segment(1) == null ? 'active' : '' ?>">
-                            <a class="nav-link" href="<?= base_url('pages/buku') ?>">
+                            <a class="nav-link" href="<?= base_url('administrator/buku') ?>">
                                 <i class="fas fa-book"></i>
                                 <span>Buku</span>
                             </a>
@@ -157,36 +204,49 @@
                                     class="fab fa-wpforms"></i> <span>Peraturan</span></a>
                             <ul class="dropdown-menu">
                                 <li class=""><a class="nav-link"
-                                        href="<?php echo base_url ('pages/lama_peminjaman'); ?>">Lama Peminjaman</a>
+                                        href="<?php echo base_url ('administrator/lama_peminjaman'); ?>">Lama
+                                        Peminjaman</a>
                                 </li>
                                 <li>
                                     <a class="nav-link" href="#">Denda</a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="">
-                            <a class="nav-link" href="<?= base_url() ?>pages/anggota">
-                                <i class="fas fa-users fa-fw"></i>
-                                <span>Anggota</span>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a class="nav-link" href="<?= base_url() ?>pages/petugas">
-                                <i class="fas fa-user-shield fa-fw"></i>
-                                <span>Petugas</span>
-                            </a>
+                        <li class="dropdown">
+                            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i
+                                    class="fas fa-users"></i> <span>Daftar Pengguna</span></a>
+                            <ul class="dropdown-menu">
+                                <li class="">
+                                    <a class="nav-link" href="<?= base_url() ?>administrator/anggota">
+                                        <!-- <i class="fas fa-users fa-fw"></i> -->
+                                        <span>Akun Anggota</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a class="nav-link" href="<?= base_url() ?>administrator/petugas">
+                                        <!-- <i class="fas fa-user-shield fa-fw"></i> -->
+                                        <span>Akun Petugas</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="menu-header">Transaki</li>
                         <li class="">
-                            <a class="nav-link" href="<?= base_url() ?>pages/peminjaman">
+                            <a class="nav-link" href="<?= base_url() ?>administrator/peminjaman">
                                 <i class="fas fa-upload fa-fw"></i>
-                                <span>Peminjaman</span>
+                                <span>Transaksi Peminjaman</span>
                             </a>
                         </li>
                         <li class="">
-                            <a class="nav-link" href="<?= base_url() ?>pages/pengembalian">
-                                <i class="fas fa-download fa-fw"></i>
-                                <span>Pengembalian</span>
+                            <a class="nav-link" href="<?= base_url() ?>administrator/peminjaman">
+                                <i class="fas fa-clipboard-list fa-fw"></i>
+                                <span>Daftar Peminjaman</span>
+                            </a>
+                        </li>
+                        <li class="">
+                            <a class="nav-link" href="<?= base_url() ?>administrator/pengembalian">
+                                <i class="fas fa-clipboard-check fa-fw"></i>
+                                <span>Daftar Pengembalian</span>
                             </a>
                         </li>
                         <li class="menu-header">Extra</li>
@@ -195,8 +255,9 @@
                                 <span>Laporan</span></a>
                             <ul class="dropdown-menu">
                                 <li class=""><a class="nav-link"
-                                        href="<?php echo base_url ('pages/laporan_ojt'); ?>">OJT</a></li>
-                                <li><a class="nav-link" href="<?php echo base_url ('pages/anggota'); ?>">Tugas Akhir</a>
+                                        href="<?php echo base_url ('administrator/laporan_ojt'); ?>">OJT</a></li>
+                                <li><a class="nav-link" href="<?php echo base_url ('administrator/anggota'); ?>">Tugas
+                                        Akhir</a>
                                 </li>
                             </ul>
                         </li>
@@ -208,9 +269,9 @@
                                     class="fas fa-laptop-code"></i> <span>Aplikasi</span></a>
                             <ul class="dropdown-menu">
                                 <li class=""><a class="nav-link"
-                                        href="<?php echo base_url ('pages/maintenance'); ?>">Maintenance Aplikasi</a>
+                                        href="<?php echo base_url ('administrator/maintenance'); ?>">Maintenance Aplikasi</a>
                                 </li>
-                                <li><a class="nav-link" href="<?php echo base_url ('pages/kontak'); ?>">Kontak
+                                <li><a class="nav-link" href="<?php echo base_url ('administrator/kontak'); ?>">Kontak
                                         Developer</a></li>
                             </ul>
                         </li>
@@ -233,7 +294,7 @@
                         <li class="menu-header">Dashboard</li>
                         <li
                             class="<?= $this->uri->segment(2) == 'buku' || $this->uri->segment(1) == null ? 'active' : '' ?>">
-                            <a class="nav-link" href="<?= base_url('pages/buku') ?>">
+                            <a class="nav-link" href="<?= base_url('administrator/buku') ?>">
                                 <i class="fas fa-book-open"></i>
                                 <span>Data Buku</span>
                             </a>
@@ -287,7 +348,7 @@
 
     <!-- Template JS File -->
     <script src="<?= base_url() ?>assets/js/scripts.js"></script>
-    <script src="<?= base_url() ?>assets/js/custom.js"></script>
+    <script src="<?= base_url() ?>assets/js/custom.js" defer></script>
     <script src="<?= base_url() ?>assets/datatables/jquery.dataTables.min.js"></script>
     <script src="<?= base_url() ?>assets/datatables/dataTables.bootstrap4.min.js"></script>
 
@@ -329,9 +390,68 @@
             selector: '[data-toggle=tooltip]'
         });
         $(".preloader").fadeOut();
-        $('#tableclient').DataTable()
+        $('#tableclient').DataTable();
     });
     </script>
+    <!-- ========== SCRIPT SELECT2 ========== -->
+    <script>
+    $(document).ready(function() {
+
+        // ===== Buku ===== //
+
+        $('.select_buku').select2({
+            ajax: {
+                url: "<?= base_url('administrator/getDataBuku_Select'); ?>",
+                dataType: "json",
+                type: "post",
+                delay: 250,
+                data: function(params) {
+                    console.log(params.term)
+                    return {
+                        search: params.term,
+                    }
+                },
+                processResults: function(data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            placeholder: 'Pilih Buku yang Akan Dipinjam (maks: 2 buku)',
+            minimumInputLength: 3,
+        });
+
+        // ===== End Buku ===== //
+
+        // ===== Peminjam ===== //
+
+        $('.select_peminjam').select2({
+            ajax: {
+                url: "<?= base_url('administrator/getDataPeminjam_Select'); ?>",
+                dataType: "json",
+                type: "post",
+                delay: 250,
+                data: function(params) {
+                    console.log(params.term)
+                    return {
+                        search: params.term,
+                    }
+                },
+                processResults: function(data) {
+                    return {
+                        results: data
+                    };
+                },
+                cache: true
+            },
+            placeholder: 'Ketikkan Nama Peminjam',
+            minimumInputLength: 2,
+        });
+        // ===== End Peminjam ===== //
+    });
+    </script>
+    <!-- ========== END SCRIPT SELECT2 ========== -->
 </body>
 
 </html>

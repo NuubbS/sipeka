@@ -46,9 +46,9 @@
                             <div class="card-body">
                                 <form method="POST" action="<?=site_url('auth/process')?> ">
                                     <div class="form-group">
-                                        <label for="username">Username</label>
-                                        <input id="username" type="text" class="form-control" name="username"
-                                            tabindex="1" required autofocus>
+                                        <label for="email">Email</label>
+                                        <input id="email" type="text" class="form-control" name="email" tabindex="1"
+                                            required autofocus>
                                     </div>
 
                                     <div class="form-group">
@@ -84,7 +84,8 @@
                                 </form>
                             </div>
                             <div class="text-muted text-center">
-                                Don't have an account? <a href="<?= base_url('auth/register'); ?>">Create One</a>
+                                Don't have an account? <a class="text-primary" onclick="registration();"
+                                    data-toggle="modal" data-target="#registrasi">Create One</a>
                             </div>
                         </div>
                         <div class="simple-footer">
@@ -108,10 +109,84 @@
     <!-- JS Libraies -->
 
     <!-- Page Specific JS File -->
+    <script>
+    function tambah() {
+        $.LoadingOverlay("show", {
+            image: "",
+            fontawesome: "fa fa-spinner fa-pulse"
+        });
+        $('#registrasi').modal('show');
+        $.LoadingOverlay("hide");
+    }
+
+    function closes() {
+        $('#registrasi').modal('hide');
+    }
+    </script>
 
     <!-- Template JS File -->
     <script src="<?= base_url() ?>assets/js/scripts.js"></script>
     <script src="<?= base_url() ?>assets/js/custom.js"></script>
 </body>
+<!-- modal tambah -->
+<div class="modal fade" tabindex="-1" role="dialog" id="registrasi" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Daftar Akun SIPAKB</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×
+                    </span>
+                </button>
+            </div>
+            <form id="form_tambah" action="<?= base_url('administrator/rak_simpan'); ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" class="form-control" name="email" id="email" required="">
+                    </div>
+                    <div class='row'>
+                        <div class='col'>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="text" class="form-control" name="password" id="password" required="">
+                            </div>
+                        </div>
+                        <div class='col'>
+                            <div class="form-group">
+                                <label>Password-Confirmation</label>
+                                <input type="text" class="form-control" name="passconf" id="passconf" required="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='col'>
+                            <div class="form-group">
+                                <label>Nama Lengkap</label>
+                                <input type="text" class="form-control" name="nama" id="nama" required="">
+                            </div>
+                        </div>
+                        <div class='col'>
+                            <div class="form-group">
+                                <label>No. Handphone</label>
+                                <input type="text" class="form-control" name="no_handphone" id="no_handphone"
+                                    required="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Alamat</label>
+                        <input type="text" class="form-control" name="alamat" id="alamat" required="">
+                    </div>
+                </div>
+                <div class="modal-footer bg-whitesmoke">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Batal Daftar</button>
+                    <button type="button" onclick="saveData()" class="btn btn-primary">Daftar Sekarang</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- modal tambah-->
 
 </html>

@@ -34,6 +34,14 @@ class Main_m extends CI_Model
         return $this->db->get($table);
     }
 
+    public function view_where_ordering_limit($table, $data, $order, $ordering, $baris, $dari)
+    {
+        $this->db->where($data);
+        $this->db->order_by($order, $ordering);
+        $this->db->limit($dari, $baris);
+        return $this->db->get($table);
+    }
+
     public function view_ordering_limit($table, $order, $ordering, $baris, $dari)
     {
         $this->db->select('*');
@@ -65,6 +73,17 @@ class Main_m extends CI_Model
         $this->db->join($table2, $table1 . '.' . $field . '=' . $table2 . '.' . $field);
         $this->db->join($table3, $table1 . '.' . $field1 . '=' . $table3 . '.' . $field1);
         $this->db->join($table4, $table1 . '.' . $field2 . '=' . $table4 . '.' . $field2);
+        $this->db->order_by($order, $ordering);
+        $this->db->limit($dari, $baris);
+        return $this->db->get();
+    }
+
+    public function view_join_one_where($table1, $table2, $field, $where, $order, $ordering, $baris, $dari)
+    {
+        $this->db->select('*');
+        $this->db->from($table1);
+        $this->db->join($table2, $table1 . '.' . $field . '=' . $table2 . '.' . $field);
+        $this->db->where($where);
         $this->db->order_by($order, $ordering);
         $this->db->limit($dari, $baris);
         return $this->db->get();

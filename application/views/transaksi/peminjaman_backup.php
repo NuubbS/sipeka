@@ -7,71 +7,81 @@
 
         <!-- data buku -->
         <div class='row'>
-            <div class='col-lg-12'>
+            <div class='col-lg-6'>
                 <div class="card">
                     <div class="card-body">
-                        <?php form_open(); ?>
-                        <div class='row'>
-                            <div class='col-6'>
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Tanggal</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" value="<?= date('d M Y') ?>" readonly>
-                                    </div>
-                                </div>
-                                <div class="form-group row mb-0">
-                                    <label class="col-sm-3 col-form-label">Peminjam</label>
-                                    <div class="col-sm-9">
-                                        <div class="form-group">
-                                            <select class="select_peminjam form-control" name="user_id"
-                                                required></select>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Tanggal</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="<?= date('d M Y') ?>" readonly>
                             </div>
-                            <div class='col-6'>
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Petugas</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control"
-                                            value="<?= $this->sesi->user_login()->nama; ?>" readonly>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Kode Transaksi</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" value="<?= $kode_jual; ?>"
-                                            name="pinjam_id" readonly>
-                                    </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Petugas</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="<?= $this->sesi->user_login()->nama; ?>"
+                                    readonly>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-0">
+                            <label class="col-sm-3 col-form-label">Peminjam</label>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <select class="select2 form-control" name="user_id" autofocus>
+                                        <?php foreach($anggota as $row) { ?>
+                                        <option value="<?= $row->user_id; ?>"><?= $row->nama; ?> (<?= $row->alamat; ?>)
+                                        </option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
-                        <div class='row'>
-                            <div class='col-12'>
-                                <div class="form-group row mb-0">
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <input type="text" name="uhuy" placeholder="Lama Pinjam, Contoh: 3 hari (3)"
-                                                class='form-control'>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <div class="form-group">
-                                            <select class="select_buku form-control " multiple="multiple" name="buku_id"
-                                                required>
-                                            </select>
-                                        </div>
-                                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class='col-lg-6'>
+                <div class="card">
+                    <!-- </div> -->
+                    <div class="card-body">
+                        <div class="form-group row mb-0">
+                            <label class="col-sm-3 col-form-label">Kode Transaksi</label>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <input type="text" class='form-control' name="kode_transaksi"
+                                        value="tsafdcafgdcasfgda" readonly>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <button type="button" class='btn btn-success float-right'><i
-                                        class='fas fa-save mr-2'></i>Simpan Data Pinjam</button>
+                        <div class="form-group row mb-0">
+                            <label class="col-sm-3 col-form-label">Buku Dipinjam</label>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <select class="select2 form-control " multiple="multiple" name="buku_id" autofocus>
+                                        <?php foreach($buku as $row) { ?>
+                                        <option value="<?= $row->buku_id; ?>"><?= $row->judul; ?> (<?= $row->tahun; ?>)
+                                        </option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <?php form_close(); ?>
+                        <div class="form-group row mb-0">
+                            <label class="col-sm-3 col-form-label">Test</label>
+                            <div class="col-sm-9">
+                                <div class="form-group">
+                                    <select id="mySelect2"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group input-group">
+                            ype="hidden" name="kitab_id" id="kitab_id">
+                            <input type="text" class="form-control" onclick="cari_buku();" placeholder="Cari Data Buku">
+                            <span class="input-group-append">
+                                <button class="btn btn-primary" onclick="cari_buku();" type="button">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </span>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -89,22 +99,15 @@
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr class="text-center">
-                                    <th>No.</th>
-                                    <th>Judul Buku</th>
-                                    <th>Jumlah</th>
+                                    <th>#</th>
+                                    <!-- <th>Invoice</th> -->
+                                    <th>kitab</th>
+                                    <th>harga</th>
+                                    <th>Qty</th>
+                                    <th>total</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <?php no:1; foreach($detailPinjam as $data) { ?>
-                                <tr class="text-center">
-                                    <th><?= $no++; ?></th>
-                                    <th><?= $data->buku_id; ?></th>
-                                    <th><?= $data->status_id; ?></th>
-                                    <th>Action</th>
-                                </tr>
-                                <?php } ?>
-                            </tbody>
                             <tbody id="cari_table">
 
                             </tbody>
@@ -121,13 +124,13 @@
 </div>
 <!-- main content -->
 <script>
-function pinjam() {
+function pilih_buku($id) {
     $.LoadingOverlay("show", {
         image: "",
         fontawesome: "fa fa-spinner fa-pulse"
     });
     $.ajax({
-        url: "<?= base_url("administrator/pinjamBuku/") ?>",
+        url: "<?= base_url("transaksi/pilih_buku/") ?>",
         dataType: "html",
         success: function(result) {
             // $.LoadingOverlay("hide");

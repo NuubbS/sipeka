@@ -15,3 +15,29 @@ function check_not_login(){
         redirect('auth');
     }
 }
+
+function check_admin()
+{
+    $ci =& get_instance();
+    $ci->load->library('sesi');
+    if($ci->sesi->user_login()->level_id != 1){
+        // redirect('pages/dashboard_m');
+        echo "<script>
+                alert('Mohon maaf, anda tidak bisa mengakses halaman ini sekarang !');
+                window.location='".site_url('member')."';
+            </script>";
+    }
+}
+
+function check_member()
+{
+    $ci =& get_instance();
+    $ci->load->library('sesi');
+    if($ci->sesi->user_login()->level_id == 1){
+        // redirect('administrator');
+        echo "<script>
+                alert('Mohon maaf, anda tidak bisa mengakses halaman ini sekarang !');
+                window.location='".site_url('administrator')."';
+            </script>";
+    }
+}
