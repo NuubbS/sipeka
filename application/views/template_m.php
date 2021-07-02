@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Dashboard &mdash; SIPEKA AKB</title>
+    <title><?= $title; ?></title>
     <link rel="icon" type="image/png" href="<?= base_url() ?>assets/img/logo/favicon.png" />
     <!-- <title>Dashboard &mdash; Lazisnu</title> -->
 
@@ -108,32 +108,48 @@
             <div class="main-sidebar">
                 <aside id="sidebar-wrapper">
                     <div class="sidebar-brand">
-                        <a href="#">PERPUSTAKAAN</a>
+                        <a href="#">PERPus kampus</a>
                     </div>
                     <div class="sidebar-brand sidebar-brand-sm">
-                        <a href="#"><img src="<?= base_url('assets/img/logo/favicon.png'); ?>" width="50"></a>
+                        <a href="#">pk</a>
                     </div>
+                    <!-- <div class="sidebar-brand sidebar-brand-sm">
+                        <a href="#"><img src="<?= base_url('assets/img/logo/favicon.png'); ?>" width="50"></a>
+                    </div> -->
                     <ul class="sidebar-menu">
                         <li class="menu-header">Dashboard</li>
-                        <li
-                            class="<?= $this->uri->segment(2) == 'buku' || $this->uri->segment(1) == null ? 'active' : '' ?>">
-                            <a class="nav-link" href="<?= base_url('pages/buku') ?>">
-                                <i class="fas fa-book-open"></i>
-                                <span>Data Buku</span>
-                            </a>
-                        </li>
-                        <li
-                            class="<?= $this->uri->segment(2) == 'buku' || $this->uri->segment(1) == null ? 'active' : '' ?>">
-                            <a class="nav-link" href="<?= base_url('pages/buku') ?>">
-                                <i class="fas fa-history"></i>
-                                <span>Riwayat Peminjaman</span>
-                            </a>
-                        </li>
-                        <li
-                            class="<?= $this->uri->segment(2) == 'buku' || $this->uri->segment(1) == null ? 'active' : '' ?>">
-                            <a class="nav-link" href="<?= base_url('pages/buku') ?>">
+                        <li class="<?= $this->uri->segment(2) == 'profil' ? 'active' : '' ?>">
+                            <a class="nav-link" href="<?= base_url('member/profil') ?>">
                                 <i class="fas fa-user"></i>
                                 <span>Profil Saya</span>
+                            </a>
+                        </li>
+                        <li
+                            class="nav-item dropdownn <?= $this->uri->segment(2) == "referensi" || $this->uri->segment(2) == "laporan_ta" || $this->uri->segment(2) =="laporan_ojt" || $this->uri->segment(2) == "mata_kuliah" ? 'active' : '' ?>">
+                            <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-book"></i>
+                                <span>Buku</span></a>
+                            <ul class="dropdown-menu">
+                                <li class="<?= $this->uri->segment(2) == 'referensi' ? 'active' : '' ?>">
+                                    <a class="nav-link" href="<?= base_url ('member/referensi')?>">Referensi</a>
+                                </li>
+                                <li class="<?= $this->uri->segment(2) == 'laporan_ta' ? 'active' : '' ?>">
+                                    <a class="nav-link" href="<?= base_url ('member/laporan_ta')?>">Laporan Tugas
+                                        Akhir</a>
+                                </li>
+                                <li class="<?= $this->uri->segment(2) == 'laporan_ojt' ? 'active' : '' ?>">
+                                    <a class="nav-link" href="<?= base_url ('member/laporan_ojt')?>">Laporan
+                                        OJT</a>
+                                </li>
+                                <li class="<?= $this->uri->segment(2) == 'mata_kuliah' ? 'active' : '' ?>">
+                                    <a class="nav-link" href="<?= base_url ('member/mata_kuliah')?>">Mata
+                                        Kuliah</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="<?= $this->uri->segment(2) == 'histori'  ? 'active' : '' ?>">
+                            <a class="nav-link" href="<?= base_url('member/histori') ?>">
+                                <i class="fas fa-history"></i>
+                                <span>Riwayat Peminjaman</span>
                             </a>
                         </li>
                     </ul>

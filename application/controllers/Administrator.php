@@ -10,15 +10,6 @@ class Administrator extends CI_Controller {
         check_admin();
         $this->load->model(['kodeotomatis_m', 'administrator_m']);
     }
-    // =========BUKU============= //
-    public function buku()
-	{
-        $data['kategori'] = $this->main_m->view('tb_kategori')->result();
-        $data['prodi']= $this->main_m->view('tb_prodi')->result();
-        $data['rak']= $this->main_m->view('tb_rak')->result();
-		$this->template->load('template','administrator/data/buku', $data);
-    }
-    // =========END BUKU============= //
     // =========GET DATA AJAX SELECT2============= //
     public function getDataBuku_Select()
     {

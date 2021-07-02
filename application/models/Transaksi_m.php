@@ -13,4 +13,14 @@ class Transaksi_m extends CI_Model
             return $this->db->affected_rows();
         }
     }
+
+    public function konfirmasiPengembalian($pinjam_id, $data, $type)
+    {
+        if ($type == 'tb_pinjam') {
+            $this->db->where('pinjam_id', $pinjam_id)->update('tb_pinjam', $data);
+        }else{
+            $this->db->where('pinjam_id', $pinjam_id)->update('tb_detailpinjam', $data);
+            // return $this->db->affected_rows();
+        }
+    }
 }

@@ -2,7 +2,7 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Transaksi Peminjaman</h1>
+            <h1>Daftar Pengembalian</h1>
         </div>
         <!-- data tabel -->
         <div class="row">
@@ -41,7 +41,7 @@
 // datatables
 var table = $('#bukuDipinjam').DataTable({
     'ajax': {
-        'url': '<?php echo base_url("transaksi/daftarPinjamBuku_fetch") ?>',
+        'url': '<?php echo base_url("transaksi/daftarPengembalianBuku_fetch") ?>',
         'dataSrc': 'data',
         'type': 'POST'
     },

@@ -12,6 +12,7 @@
 
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/bootstrap/css/bootstrap-social.css">
+    <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/toast/iziToast.css">
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/css/style.css">
@@ -32,6 +33,12 @@
 </head>
 
 <body>
+    <!-- alert -->
+    <div id="eror" data-er="<?= $this->session->flashdata('eror'); ?>"></div>
+    <div id="sukses" data-sr="<?= $this->session->flashdata('sukses'); ?>"></div>
+    <div id="eror" data-el="<?= $this->session->flashdata('eror'); ?>"></div>
+    <div id="warning" data-warning="<?= $this->session->flashdata('warning'); ?>"></div>
+    <!-- alert -->
     <div id="app">
         <section class="section">
             <div class="container mt-5">
@@ -39,7 +46,7 @@
                     <div
                         class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
                         <div class="login-brand">
-                            <h3>SIPAKB</h3>
+                            <h3>PERPUS KAMPUS</h3>
                         </div>
 
                         <div class="card card-primary">
@@ -107,11 +114,15 @@
     <script src="<?= base_url() ?>assets/plugins/jquery/jquery.nicescroll.min.js"></script>
     <script src="<?= base_url() ?>assets/plugins/jquery/moment.js"></script>
     <script src="<?= base_url() ?>assets/js/stisla.js"></script>
+    <script src="<?= base_url() ?>assets/plugins/toast/iziToast.min.js"></script>
+    <script src="<?= base_url() ?>assets/plugins/sweetalert2/sweetalert2.all.min.js"></script>
 
     <!-- JS Libraies -->
 
     <!-- Page Specific JS File -->
     <script>
+    // $(document).ready(function() {})
+
     function tambah() {
         $.LoadingOverlay("show", {
             image: "",
@@ -124,6 +135,29 @@
     function closes() {
         $('#registrasi').modal('hide');
     }
+    </script>
+    <script>
+    // alert
+    var er = $('#eror').data('er');
+    if (er) {
+        iziToast.error({
+            title: 'Error!',
+            message: er,
+            position: 'topRight',
+            balloon: true,
+            transitionIn: 'fadeInLeft',
+            transitionOut: 'fadeOutRight'
+        });
+    }
+    <?php if ($this->uri->segment(2) == 'register') { ?>
+    iziToast.info({
+        title: 'Information !',
+        message: 'Pastikan anda terkoneksi dengan internet saat melakukan registrasi !, Dikarenakan kami akan mengirimkan kode aktivasi ke email anda !',
+        position: 'topCenter',
+        timeout: 0
+    });
+    // alert
+    <?php } ?>
     </script>
 
     <!-- Template JS File -->

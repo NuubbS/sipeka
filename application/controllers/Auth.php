@@ -3,13 +3,25 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth extends CI_Controller
 {
-	public function index()
+	public function login2()
 	{
 		check_already_login();
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required');
 		if ($this->form_validation->run() == false) {
 			$this->load->view('auth/login');
+		}else{
+			$this->_process();
+		}
+	}
+
+	public function index()
+	{
+		check_already_login();
+		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required');
+		if ($this->form_validation->run() == false) {
+			$this->load->view('auth/loginv2');
 		}else{
 			$this->_process();
 		}
@@ -29,22 +41,14 @@ class Auth extends CI_Controller
 				);
 				if($params['level_id'] != 1){
 					$this->session->set_userdata($params);
-					echo "<script>
-						alert('Selamat, login berhasil');
-						window.location='".site_url('member')."';
-					</script>";
+					redirect('member/profil');
 				}else{
 					$this->session->set_userdata($params);
-				echo "<script>
-						alert('Selamat, login berhasil');
-						window.location='".site_url('administrator')."';
-					</script>";
+				redirect('administrator');
 				}
 			} else {
-				echo "<script>
-						alert('Login gagal, email / password salah');
-						window.location='".site_url('auth')."';
-					</script>";
+				$this->session->set_flashdata('eror', "Periksa kembali username dan password anda !");
+				$this->load->view('auth/login');
 			}
 		}
 	}

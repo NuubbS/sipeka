@@ -151,7 +151,7 @@
                         <li class="menu-header">Dashboard</li>
                         <li
                             class="<?= $this->uri->segment(2) == 'dashboard' || $this->uri->segment(1) == null ? 'active' : '' ?>">
-                            <a class="nav-link" href="<?= base_url('administrator/dashboard') ?>">
+                            <a class="nav-link" href="<?= base_url('administrator') ?>">
                                 <i class="fas fa-fire"></i>
                                 <span>Dashboard</span>
                             </a>

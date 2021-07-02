@@ -2,59 +2,50 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Daftar Buku</h1>
+            <h1>Riwayat Peminjaman Saya</h1>
         </div>
-        <!-- data tabel -->
-        <div class="row">
-            <div class="col">
-                <!-- animasi table -->
-                <div class="animate__animated animate__fadeInUp animate__fast">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card table-responsive">
-                                <div class="card-body">
-                                    <table id="table_buku" class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Judul</th>
-                                                <th scope="col">Kategori</th>
-                                                <th scope="col">Prodi</th>
-                                                <!-- <th scope="col">Tahun</th>
-                                        <th scope="col">Jumlah</th> -->
-                                                <th scope="col">Rak</th>
-                                                <th scope="col">Tools</th>
-                                                <th scope="col">#</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+
+        <div class="section-body">
+        </div>
+        <!-- animasi table -->
+        <div class="animate__animated animate__fadeInUp animate__fast">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card table-responsive">
+                        <div class="card-body">
+                            <table id="table_buku" class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Kode Transaksi</th>
+                                        <th scope="col">Judul</th>
+                                        <th scope="col">tanggal Pinjam</th>
+                                        <th scope="col">Tanggal Kembali</th>
+                                        <th scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- data tabel -->
-    </section>
+</div>
+</section>
 </div>
 <!-- main content -->
 
 <!-- script crud-->
 <script type="text/javascript">
-var table;
-
-// $(document).ready(function() {
-
-table = $('#table_buku').DataTable({
+var table = $('table').DataTable({
     'ajax': {
-        'url': '<?= base_url('member/bukumember_fetch') ?>',
+        'url': '<?php echo base_url("member/riwayatPeminjaman_fetch") ?>',
         'dataSrc': 'data',
         'type': 'POST'
     },
     'processing': true,
-    // scrollY: '250px',
     'serverSide': true,
     'paging': true,
     'lengthChange': true,
@@ -64,20 +55,18 @@ table = $('#table_buku').DataTable({
     'autoWidth': false,
 });
 
-<?php if ($this->session->flashdata('result')) : ?>
-<?php if ($this->session->flashdata('result')['status']) : ?>
-Swal.Fire('Sukses!', '<?= $this->session->flashdata('result')['msg'] ?>', 'success');
-<?php else : ?>
-Swal.Fire('Maaf!', '<?= $this->session->flashdata('result')['msg'] ?>', 'error');
-<?php endif ?>
-<?php endif ?>
+function reload_datatables() {
+    table.ajax.reload();
+}
+
+
+<?php if ($this->session->flashdata('result')) : ?> <?php if ($this->session->flashdata('result')['status']) : ?> Swal
+    .Fire('Sukses!', '<?= $this->session->flashdata('result')['msg'] ?>', 'success');
+<?php else : ?> Swal.Fire(
+    'Maaf!', '<?= $this->session->flashdata('result')['msg'] ?>', 'error');
+<?php endif ?> <?php endif ?>
 
 // });
-
-
-function reload() {
-    location.reload();
-}
 
 function notifikasi(status, message) {
     $.LoadingOverlay("hide");
@@ -117,7 +106,7 @@ function saveData() {
         success: function(result) {
             message = result.messages;
             status = result.status;
-            $('#tambah_buku').modal('hide');
+            $('#tambah_buku_referensi').modal('hide');
             $('input').val('');
             notifikasi(status, message);
             clear_form_elements('modal-body');
@@ -154,7 +143,7 @@ function tambah() {
         image: "",
         fontawesome: "fa fa-spinner fa-pulse"
     });
-    $('#tambah_buku').modal('show');
+    $('#tambah_buku_referensi').modal('show');
     $.LoadingOverlay("hide");
 }
 
@@ -164,7 +153,7 @@ function edit(id) {
         fontawesome: "fa fa-spinner fa-pulse"
     });
     $.ajax({
-        url: "<?= base_url("data_perpus/buku_edit/") ?>" + id,
+        url: "<?= base_url("member/buku_edit/") ?>" + id,
         dataType: "html",
         success: function(result) {
             $.LoadingOverlay("hide");
@@ -228,7 +217,7 @@ function hapus(id) {
                 image: "",
                 fontawesome: "fa fa-spinner fa-pulse"
             });
-            $.post('<?= base_url('data_perpus/buku_hapus') ?>', {
+            $.post('<?= base_url('member/buku_hapus') ?>', {
                 'id': id
             }, function(data, textStatus, xhr) {
                 $.LoadingOverlay("hide");
@@ -260,13 +249,13 @@ function hapus(id) {
 
 
 function closes() {
-    $('#tambah_buku').modal('hide');
+    $('#tambah_buku_referensi').modal('hide');
 }
 
 function detail(id) {
     $.LoadingOverlay("show");
     $.ajax({
-        url: "<?= base_url("data_perpus/buku_detail/") ?>" + id,
+        url: "<?= base_url("member/buku_detail/") ?>" + id,
         dataType: "html",
         success: function(result) {
             $.LoadingOverlay("hide");
@@ -292,7 +281,7 @@ function closes_update() {
                 <h5 class="modal-title">Detail Buku</h5> <button type="button" class="close" data-dismiss="modal"
                     aria-label="Close"> <span aria-hidden="true">×</span> </button>
             </div>
-            <form id="form_detail" action="<?= base_url('data_perpus/buku_detail'); ?>" method="post">
+            <form id="form_detail" action="<?= base_url('member/buku_refrensi_detail'); ?>" method="post">
                 <div class="modal-body" id="content_detail">
 
                 </div>
@@ -301,3 +290,76 @@ function closes_update() {
     </div>
 </div>
 <!-- modal info -->
+
+<!-- modal update -->
+<div class="modal fade" tabindex="-1" role="dialog" id="update_buku" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Perbarui Data buku</h5> <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"> <span aria-hidden="true">×</span> </button>
+            </div>
+            <form id="form_update" action="<?= base_url('member/buku_update'); ?>" method="post">
+                <div class="modal-body" id="content_update">
+                    <!-- isi form di folder lain -->
+                </div>
+                <div class="modal-footer bg-whitesmoke br">
+                    <button type="button" class="btn btn-danger" onclick="closes_update()">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="updateData()">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- modal update -->
+
+<!-- modal tambah -->
+<div class="modal fade" tabindex="-1" role="dialog" id="tambah_buku_referensi" aria-hidden="true"
+    style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Masukkan Data Buku</h5> <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"> <span aria-hidden="true">×</span> </button>
+            </div>
+            <form id="form_tambah" action="<?= base_url('member/buku_referensi_simpan'); ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Judul</label>
+                        <input type="text" class="form-control" name="judul" id="judul" required="">
+                    </div>
+                    <div class="form-group row">
+                        <div class='col-6'>
+                            <label for="prodi_id">Program Studi</label>
+                            <select id="prodi_id" name="prodi_id" class="form-control">
+                                <?php foreach ($prodi as $key => $data) { ?>
+                                <option value="<?= $data->prodi_id; ?>"><?= $data->prodi ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                        <div class='col-6'><label for="rak_id">Rak Penyimpanan</label>
+                            <select id="rak_id" name="rak_id" class="form-control">
+                                <?php foreach ($rak as $key => $data) { ?>
+                                <option value="<?= $data->rak_id; ?>"><?= $data->rak_nama ?></option>
+                                <?php } ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class='col-4'><label>Tahun</label>
+                            <input type="text" class="form-control" name="tahun" id="tahun" required="">
+                        </div>
+                        <div class='col-4'><label>Jumlah</label>
+                            <input type="text" class="form-control" name="jumlah" id="jumlah" required="">
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-whitesmoke br">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+                        <button type="button" onclick="saveData()" class="btn btn-primary">Simpan Data Buku</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- modal tambah-->

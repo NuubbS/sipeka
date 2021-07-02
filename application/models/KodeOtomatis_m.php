@@ -15,7 +15,12 @@ class KodeOtomatis_m extends CI_Model
         $this->db->like($field, $prefix, 'after');
         $this->db->order_by($field, 'desc');
         $this->db->limit(1);
-
-        return $this->db->get($table)->row_array()[$field];
+        
+            return $this->db->get($table)->row_array()[$field];
+        // if ($this->db->get($table)->row_array()) {
+        //     return $this->db->get($table)->row_array();
+        // }else{
+        //     return $this->db->get($table)->row();
+        // }
     }
 }

@@ -11,7 +11,14 @@ $tgl_kembali = date('Y-m-d', $kembali);
         <div class="section-header">
             <h1>Peminjaman Buku</h1>
         </div>
-
+        <div class="row mb-2">
+            <div class="col-lg-12">
+                <a href="#" class="btn btn-icon btn-sm btn-primary float-right" target="_blank"><i
+                        class="fas fa-share-square mr-2"></i>List Anggota</a>
+                <a href="#" class="btn btn-icon btn-sm btn-info float-right mr-2" target="_blank"><i
+                        class="far fa-share-square mr-2"></i>List Buku</a>
+            </div>
+        </div>
         <!-- data buku -->
         <div class='row'>
             <div class='col-lg-12'>
@@ -35,7 +42,7 @@ $tgl_kembali = date('Y-m-d', $kembali);
                                         <?= form_error('user_id', '<p class="text-danger">','</p>'); ?>
                                     </div>
                                 </div>
-                                <div class="form-group row">
+                                <div class=" form-group row">
                                     <label class="col-sm-2 col-form-label text-right">Buku</label>
                                     <div class="col-sm-10">
                                         <select class="select_buku form-control " multiple="multiple" name="buku_id[]">

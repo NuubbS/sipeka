@@ -30,14 +30,6 @@ class Transaksi extends CI_Controller {
         // die;
 
 
-        // $pinjam = $this->crud_m->tampil_order('pinjam_id', 'tb_pinjam', 'DESC')->row();
-        // if (empty($pinjam)) {
-        //     $data['kode_jual'] = 1;
-        //     $kode['pinjam_id'] = 1;
-        // } else {
-        //     $data['kode_jual'] = $pinjam->pinjam_id + 1;
-        //     $kode['pinjam_id'] = $pinjam->pinjam_id + 1;
-        // }
         $data['newKode']= $prefix . sprintf('%03s', $noUrut);
         // $data['detailPinjam'] = $this->crud_m->tampil_join('tb_buku', 'tb_detailpinjam', 'tb_buku.buku_id=tb_detailpinjam.buku_id', $kode)->result();
 
@@ -57,8 +49,8 @@ class Transaksi extends CI_Controller {
                 'kode_transaksi' => $kode_transaksi,
                 'user_id' => $user_id,
                 'tanggal_pinjam' => $tanggal_pinjam,
-                'jumlah_buku' => 1,
                 'created_by' => $created_by,
+                'status_id' => 3
             ];
             $DataPinjam = $this->transaksi_m->inputPinjam($data, 'tb_pinjam');
             $buku = $this->input->post('buku_id[]');
@@ -67,8 +59,8 @@ class Transaksi extends CI_Controller {
                 array_push($data2, array(
                     'pinjam_id' => $DataPinjam,
                     'buku_id' => $key,
+                    'jumlah_pinjam' => 1,
                     'tanggal_kembali' => $tanggal_kembali,
-                    'status_id' => 3
                 ));
             }
             if($this->transaksi_m->inputPinjam($data2, 'tb_detailpinjam') > 0){
@@ -87,7 +79,7 @@ class Transaksi extends CI_Controller {
 
     public function pengembalianBuku()
     {
-        $this->template->load('template','administrator/transaksi/peminjamanBuku');
+        $this->template->load('template','administrator/transaksi/pengembalianBuku');
     }
     // end pages
     
@@ -103,9 +95,29 @@ class Transaksi extends CI_Controller {
         $this->datatables_builder->order_by('pinjam_id', 'desc');
         $m = $this->datatables_builder->get();
         foreach ($m as $key => $val) {
-                    $btn_kembali = sprintf('<button onclick="pilihPeminjam(%s)" class="btn btn-icon btn-sm btn-warning m-1" data-toggle="tooltip" data-placement="top" title="Pilih"><i class="fas fa-check"></i> Dikembalikan</button>', $val['pinjam_id']);
-                    $btn_detail = sprintf('<button onclick="pilihPeminjam(%s)" class="btn btn-icon btn-sm btn-info m-1" data-toggle="tooltip" data-placement="top" title="Pilih"><i class="fas fa-info"></i> Detail Pinjam</button>', $val['pinjam_id']);
-                $m[$key]['pinjam_id'] = $btn_kembali.$btn_detail;
+                    $btn_kembali = sprintf('<button onclick="kembali(%s)" class="btn btn-icon btn-sm btn-warning m-1" data-toggle="tooltip" data-placement="top" title="Pilih"><i class="fas fa-check"></i> Dikembalikan</button>', $val['pinjam_id']);
+                    $btn_detail = sprintf('<button onclick="detail(%s)" class="btn btn-icon btn-sm btn-info m-1" data-toggle="tooltip" data-placement="top" title="Pilih"><i class="fas fa-info"></i> Detail</button>', $val['pinjam_id']);
+                    $btn_hapus = sprintf('<button onclick="hapus(%s)" class="btn btn-icon btn-sm btn-danger m-1" data-toggle="tooltip" data-placement="top" title="Pilih"><i class="fas fa-trash"></i> Hapus</button>', $val['pinjam_id']);
+                $m[$key]['pinjam_id'] = $btn_kembali.$btn_detail.$btn_hapus;
+                
+            }
+        
+        $this->datatables_builder->render_no_keys($m);
+    }
+
+    public function daftarPengembalianBuku_fetch()
+    {
+        $this->datatables_builder->select('tb_pinjam.kode_transaksi, tb_user.nama, tb_pinjam.tanggal_pinjam, tb_pinjam.created_by, tb_pinjam.pinjam_id');
+        $this->datatables_builder->from('tb_pinjam');
+        $this->datatables_builder->join('tb_user', 'tb_pinjam.user_id = tb_user.user_id');
+        // $this->datatables_builder->join('tb_detailpinjam', 'tb_pinjam.pinjam_id = tb_detailpinjam.pinjam_id');
+        $this->datatables_builder->join('tb_status', 'tb_pinjam.status_id = tb_status.status_id');
+        $this->datatables_builder->where_in('tb_pinjam.status_id', ['4']);
+        $this->datatables_builder->order_by('pinjam_id', 'desc');
+        $m = $this->datatables_builder->get();
+        foreach ($m as $key => $val) {
+                    $btn_kembali = sprintf('<button onclick="kembali(%s)" class="btn btn-icon btn-sm btn-success m-1" data-toggle="tooltip" data-placement="top" title="Pilih"><i class="fas fa-check"></i> Dikembalikan</button>', $val['pinjam_id']);
+                $m[$key]['pinjam_id'] = $btn_kembali;
                 
             }
         
@@ -184,6 +196,22 @@ class Transaksi extends CI_Controller {
 
         }
 
-
-
+        public function kembalikanBuku()
+        {
+            $pinjam_id = $this->input->post('id');
+            $data = [
+                'pinjam_id' => $pinjam_id,
+                'status_id' => 4,
+            ];
+            $this->transaksi_m->konfirmasiPengembalian($pinjam_id, $data, 'tb_pinjam');
+            $tanggal_kembali = date('Y-m-d');
+            $data2 = [
+                'tanggal_kembali' => $tanggal_kembali
+            ];
+            if($this->transaksi_m->konfirmasiPengembalian($pinjam_id, $data2, 'tb_detailpinjam') > 0){
+                echo json_encode(true);
+            }else{
+                echo json_encode(false);
+            }
+        }
 }
