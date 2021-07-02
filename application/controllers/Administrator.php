@@ -45,9 +45,10 @@ class Administrator extends CI_Controller {
 	public function index()
 	{
 		check_admin();
-        $data['kategori'] = $this->main_m->view('tb_kategori');
         $data['buku'] = $this->main_m->view_join_three_unwhere('tb_buku', 'tb_kategori', 'tb_prodi', 'tb_rak', 'kategori_id', 'prodi_id', 'rak_id', 'buku_id', 'desc', 0, 4);
         $data['anggota'] = $this->main_m->view_where_ordering_limit('tb_user', array('tb_user.level_id' => 2) , 'tb_user.date_created', 'desc', 0, 4);
+        $data['peminjaman'] = $this->main_m->view_join_one_where('tb_pinjam', 'tb_user', 'user_id', array('tb_pinjam.status_id' => 3) , 'tb_pinjam.pinjam_id', 'desc', 0, 4);
+        $data['pengembalian'] = $this->main_m->view_join_one_where('tb_pinjam', 'tb_user', 'user_id', array('tb_pinjam.status_id' => 4) , 'tb_pinjam.pinjam_id', 'desc', 0, 4);
         $this->template->load('template','administrator/data/dashboard', $data);
 	}
 
