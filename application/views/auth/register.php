@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Login &mdash; Perpus Kampus</title>
+    <title>Registrasi &mdash; Perpus Kampus</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/bootstrap/css/bootstrap.min.css">
@@ -20,9 +20,6 @@
 </head>
 
 <body>
-    <div id="flash-eror" data-eror="<?= $this->session->flashdata('eror'); ?>"></div>
-    <div id="flash-sukses" data-sukses="<?= $this->session->flashdata('sukses'); ?>"></div>
-    <div id="flash-warning" data-warning="<?= $this->session->flashdata('warning'); ?>"></div>
     <div id="app">
         <section class="section">
             <div class="d-flex flex-wrap align-items-stretch">
@@ -35,53 +32,55 @@
                             </h4>
                             <p class="text-muted">Sebelum menggunakan aplikasi ini, anda harus masuk atau mendaftar jika
                                 belum mempunyai akun.</p>
-                            <form method="POST" action="<?=site_url('auth')?> ">
+                            <form method="POST" action="<?=site_url('auth/register')?> ">
                                 <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input id="email" type="text" class="form-control" name="email"
-                                        value="<?= set_value('email'); ?>" tabindex="1" autofocus>
+                                    <label>Nama</label>
+                                    <input type="text" class="form-control" name="nama" id="nama"
+                                        value="<?= set_value('nama') ?>" placeholder="Nama Lengkap anda">
+                                    <?= form_error('nama', '<small class="text-danger">','</small>') ?>
+                                </div>
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" class="form-control" name="email" id="email"
+                                        value="<?= set_value('email'); ?>"
+                                        placeholder="Harap masukkan email yang masih aktif">
                                     <?= form_error('email', '<small class="text-danger">','</small>') ?>
                                 </div>
-
-                                <div class="form-group">
-                                    <div class="d-block">
-                                        <label for="password" class="control-label">Password</label>
-                                        <div class="float-right">
-                                            <!-- <a href="<?= base_url() ?>dist/auth_forgot_password" class="text-small">
-                                                Forgot Password?
-                                            </a> -->
-                                        </div>
+                                <div class="form-group row">
+                                    <div class="col-6"><label>Password</label>
+                                        <input type="password" class="form-control" name="password" id="password">
+                                        <?= form_error('password', '<small class="text-danger">','</small>') ?>
                                     </div>
-                                    <input id="password" type="password" class="form-control" name="password"
-                                        tabindex="2">
-                                    <?= form_error('password', '<small class="text-danger">','</small>') ?>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" name="remember" class="custom-control-input" tabindex="3"
-                                            id="remember-me">
-                                        <label class="custom-control-label" for="remember-me">Remember Me</label>
+                                    <div class="col-6"><label>Ulangi Password</label>
+                                        <input type="password" class="form-control" name="passwordconfig"
+                                            id="passwordconfig">
+                                        <?= form_error('passwordconfig', '<small class="text-danger">','</small>') ?>
                                     </div>
                                 </div>
-
+                                <div class="form-group">
+                                    <label>Alamat</label>
+                                    <input type="text" class="form-control" name="alamat" id="alamat"
+                                        value="<?= set_value('alamat'); ?>">
+                                    <?= form_error('alamat', '<small class="text-danger">','</small>') ?>
+                                </div>
+                                <div class="form-group">
+                                    <label>No. Handphone</label>
+                                    <input type="number" class="form-control" name="no_handphone" id="no_handphone"
+                                        value="<?= set_value('no_handphone'); ?>">
+                                    <?= form_error('no_handphone', '<small class="text-danger">','</small>') ?>
+                                </div>
                                 <div class="form-group text-right">
-                                    <!-- <a href="auth-forgot-password.html" class="float-left mt-3">
-                                        Forgot Password?
-                                    </a> -->
-                                    <button type="submit" name="login"
-                                        class="btn btn-primary btn-lg btn-icon icon-right" tabindex="4">
+                                    <a href="<?= base_url('auth'); ?>" class="float-left mt-3">
                                         Login
+                                    </a>
+                                    <button type="submit" name="register"
+                                        class="btn btn-primary btn-lg btn-icon icon-right" tabindex="4">
+                                        Daftar Sekarang
                                     </button>
-                                </div>
-
-                                <div class="mt-5 text-center">
-                                    Don't have an account? <a href="<?= base_url('auth/register'); ?>">Create new
-                                        one</a>
                                 </div>
                             </form>
 
-                            <div class="text-center mt-5 text-small">
+                            <div class="text-center text-small">
                                 Copyright &copy; NuubbS. Made with 💙 by Stisla
                             </div>
                         </div>
@@ -125,52 +124,12 @@
     <script src="<?= base_url(); ?>assets/js/scripts.js"></script>
     <script src="<?= base_url(); ?>assets/js/custom.js"></script>
 
-    <!-- Page Specific JS File -->
+    <!-- Page Specific JS File --> -->
     <script>
     $.LoadingOverlay("show")
     $(document).ready(function() {
         $.LoadingOverlay("hide")
     })
-
-    // alert
-    var flash = $('#flash-eror').data('eror');
-    if (flash) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Username / Password salah!\n Periksa Kembali Username dan Password Anda !!!',
-            toast: true,
-            position: 'top',
-            showConfirmButton: false,
-            timer: 5000,
-        })
-        // toastr.success(flash)
-    }
-
-    var flash = $('#flash-sukses').data('sukses');
-    if (flash) {
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil Mendaftar !\n Silakan login untuk melanjutkan !!!',
-            toast: true,
-            position: 'top',
-            showConfirmButton: false,
-            timer: 5000,
-        })
-        // toastr.success(flash)
-    }
-
-    var flash = $('#flash-warning').data('warning');
-    if (flash) {
-        Swal.fire({
-            icon: 'warning',
-            title: 'Berhasil Logout !\n Silakan login untuk kembali !!!',
-            toast: true,
-            position: 'top',
-            showConfirmButton: false,
-            timer: 5000,
-        })
-        // toastr.success(flash)
-    }
     </script>
 </body>
 

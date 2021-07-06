@@ -14,25 +14,7 @@ class Transaksi extends CI_Controller {
     // pages
     public function peminjaman()
     {
-        // ===== Kode Otomatis Transaksi ===== //
-        $table= "tb_pinjam";
-        $field= "kode_transaksi";
-        $today= date('ymd');
-        $prefix= "TR".$today;
-        
-        $lastKode = $this->kodeotomatis_m->getMax_Today($prefix, $table, $field);
-        // ambil 3 karakter e belakang
-        $noUrut = (int) substr($lastKode, -3, 3);
-        $noUrut++;
-
-        $newKode= $prefix . sprintf('%03s', $noUrut);
-        // var_dump($newKode);
-        // die;
-
-
-        $data['newKode']= $prefix . sprintf('%03s', $noUrut);
-        // $data['detailPinjam'] = $this->crud_m->tampil_join('tb_buku', 'tb_detailpinjam', 'tb_buku.buku_id=tb_detailpinjam.buku_id', $kode)->result();
-
+        $data = [ 'kode' => $this->kodeotomatis_m->kodeT()];
         // validasi
         $this->form_validation->set_rules('user_id', 'Peminjam', 'trim|required');
         $this->form_validation->set_rules('buku_id[]', 'Buku', 'trim|required');
@@ -52,7 +34,7 @@ class Transaksi extends CI_Controller {
                 'created_by' => $created_by,
                 'status_id' => 3
             ];
-            $DataPinjam = $this->transaksi_m->inputPinjam($data, 'tb_pinjam');
+            $DataPinjam = $this->transaksi_m->inputPinjam($data, 'tb_pinjam', $user_id);
             $buku = $this->input->post('buku_id[]');
             $data2 = array();
             foreach ($buku as $key) {
@@ -63,7 +45,7 @@ class Transaksi extends CI_Controller {
                     'tanggal_kembali' => $tanggal_kembali,
                 ));
             }
-            if($this->transaksi_m->inputPinjam($data2, 'tb_detailpinjam') > 0){
+            if($this->transaksi_m->inputPinjam($data2, 'tb_detailpinjam', $user_id) > 0){
                 redirect('transaksi/peminjamanBuku');
             }else{
                 redirect('transaksi/peminjaman');
@@ -74,12 +56,14 @@ class Transaksi extends CI_Controller {
 
     public function peminjamanBuku()
     {
-        $this->template->load('template','administrator/transaksi/peminjamanBuku');
+        $data['title'] = "Daftar Peminjaman";
+        $this->template->load('template','administrator/transaksi/peminjamanBuku', $data);
     }
 
     public function pengembalianBuku()
     {
-        $this->template->load('template','administrator/transaksi/pengembalianBuku');
+        $data['title'] = "Daftar Pengembalian";
+        $this->template->load('template','administrator/transaksi/pengembalianBuku', $data);
     }
     // end pages
     
@@ -117,7 +101,8 @@ class Transaksi extends CI_Controller {
         $m = $this->datatables_builder->get();
         foreach ($m as $key => $val) {
                     $btn_kembali = sprintf('<button onclick="kembali(%s)" class="btn btn-icon btn-sm btn-success m-1" data-toggle="tooltip" data-placement="top" title="Pilih"><i class="fas fa-check"></i> Dikembalikan</button>', $val['pinjam_id']);
-                $m[$key]['pinjam_id'] = $btn_kembali;
+                    $btn_detail = sprintf('<button onclick="kembali(%s)" class="btn btn-icon btn-sm btn-info m-1" data-toggle="tooltip" data-placement="top" title="Pilih"><i class="fas fa-info"></i> Detail</button>', $val['pinjam_id']);
+                $m[$key]['pinjam_id'] = $btn_kembali.$btn_detail;
                 
             }
         
@@ -159,10 +144,6 @@ class Transaksi extends CI_Controller {
         $this->datatables_builder->render_no_keys($m);
 }
 
-    function pilih_anggota($id){
-        $data['aggota'] = $this->main_m->view_where('tb_user', $id)->row();
-        $this->template->load('template','transaksi/peminjaman', $data);
-    }
 
     function pilih_buku($id){
         $field['pinjam_id'] = 1001; 
@@ -186,7 +167,7 @@ class Transaksi extends CI_Controller {
                     $m[$key]['user_id'] =$btn_info;
                 }
                 else{
-                    $btn_pilih = sprintf('<button onclick="pilihPeminjam(%s)" class="btn btn-icon btn-sm btn-primary m-1" data-toggle="tooltip" data-placement="top" title="Pilih"><i class="fas fa-user-check"></i> Pilih</button>', $val['user_id']);
+                    $btn_pilih = sprintf('<button onclick="id_anggota(%s)" class="btn btn-icon btn-sm btn-primary m-1" data-toggle="tooltip" data-placement="top" title="Pilih"><i class="fas fa-user-check"></i> Pilih</button>', $val['user_id']);
                 $m[$key]['user_id'] = $btn_pilih;
                 }
                 

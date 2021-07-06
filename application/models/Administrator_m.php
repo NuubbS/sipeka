@@ -15,17 +15,16 @@ class administrator_m extends CI_Model
 		$this->db->select('a.buku_id, a.judul, a.tahun');
 		$this->db->from('tb_buku as a');
 		$this->db->like('a.judul', $search);
-		$this->db->where('a.jumlah !=', '0');
+		$this->db->where('jumlah !=', 0);
 		return $this->db->get()->result_array();
 	}
-
+    
     public function getDataPeminjam_Select($search)
 	{
-		$this->db->select('a.user_id, a.nama, a.alamat, b.status');
+        $this->db->select('a.user_id, a.nama, a.alamat');
 		$this->db->from('tb_user as a');
-        $this->db->join('tb_status as b', 'a.status_id = b.status_id');
 		$this->db->like('a.nama', $search);
-		$this->db->or_like('a.alamat', $search);
+        $this->db->where('status_id !=', 2);
 		return $this->db->get()->result_array();
 	}
     // ========== END GET DATA AJAX ==========

@@ -23,4 +23,18 @@ class KodeOtomatis_m extends CI_Model
         //     return $this->db->get($table)->row();
         // }
     }
+
+    function kodeT()
+    {
+        $query = $this->db->query("SELECT MAX(MID(kode_transaksi, 9, 4)) AS kodeT FROM tb_pinjam WHERE MID(kode_transaksi, 3, 6) = DATE_FORMAT(CURDATE(), '%y%m%d')");
+        if ($query->num_rows() > 0) {
+            $row = $query->row();
+            $n = ((int)$row->kodeT) + 1;
+            $no = sprintf("%'.04d", $n);
+        }else{
+            $no = "0001";
+        }
+        $KT = "PK".date('ymd').$no;
+        return $KT;
+    }
 }

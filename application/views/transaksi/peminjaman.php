@@ -31,7 +31,7 @@ $tgl_kembali = date('Y-m-d', $kembali);
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label text-right">No. Peminjaman</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" value="<?= $newKode ?>"
+                                        <input type="text" class="form-control" value="<?= $kode; ?>"
                                             name="kode_transaksi" readonly>
                                     </div>
                                 </div>

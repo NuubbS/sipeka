@@ -30,4 +30,8 @@ table = $('#table_anggota').DataTable({
     'info': true,
     'autoWidth': false,
 });
+
+function reload_datatables() {
+    table.ajax.reload();
+}
         </script>

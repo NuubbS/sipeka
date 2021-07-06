@@ -30,92 +30,51 @@ $tgl_kembali = date('d-m-Y', $kembali);
 
         <!-- data buku -->
         <div class='row'>
-            <div class='col-lg-12'>
-                <div class="card">
+            <div class='col-lg-6'>
+                <div class="card card-primary">
                     <div class="card-body">
-                        <?php form_open(); ?>
-                        <div class='row'>
-                            <div class='col-6'>
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <div class='bg-primary text-white'>
-                                            <p class='m-1 ml-2'>Data Transaksi</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">No. Peminjaman</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" value="<?= $newKode ?>" readonly>
-                                    </div>
-                                </div>
-                                <!-- <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Tgl. Peminjaman</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" value="<?= date('Y-m-d');?>" readonly>
-                                    </div>
-                                </div> -->
-                                <!-- <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">ID Anggota</label>
-                                    <div class="col-sm-9">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Cari ID Anggota"
-                                                required autocomplete="off" name="user_id" id="cari_peminjam"
-                                                onclick="dataPeminjam()">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary" type="button"
-                                                    onclick="dataPeminjam()"><i class='fas fa-search'></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
-                                <div class="form-group row mb-0">
-                                    <label class="col-sm-3 col-form-label">Peminjam</label>
-                                    <div class="col-sm-9">
-                                        <div class="form-group">
-                                            <select class="select_peminjam form-control" name="user_id"
-                                                required></select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class='col-6'>
-                                <div class="form-group row">
-                                    <div class="col-sm-12">
-                                        <div class='bg-primary text-white'>
-                                            <p class='m-1 ml-2'>Data Buku Dipinjam</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Cari Buku</label>
-                                    <div class="col-sm-9">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Cari Kode Buku"
-                                                required autocomplete="off" name="kode_buku" id="cari_buku"
-                                                onclick="dataBuku()">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary" type="button" onclick="dataBuku()"><i
-                                                        class='fas fa-search'></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">Tanggal Pengembalian</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" value="<?= $tgl_kembali; ?>" readonly>
-                                    </div>
+                        <div class="form-group mb-2">
+                            <label>Tanggal</label>
+                            <input type="text" class="form-control form-control-sm" value="<?= date('Y-m-d') ?>"
+                                disabled>
+                        </div>
+                        <div class="form-group mb-2">
+                            <label>Petugas</label>
+                            <input type="text" class="form-control form-control-sm"
+                                value="<?= $this->sesi->user_login()->nama;?>" disabled>
+                        </div>
+                        <div class="form-group mb-2">
+                            <label>Cari Anggota</label>
+                            <div class="input-group mb-3">
+                                <input type="text" id="user_id" name="user_id" class="form-control form-control-sm"
+                                    placeholder="Cari ID anggota" aria-label="" autofocus onclick="dataPeminjam()">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary btn-sm" type="button"
+                                        onclick="dataPeminjam()">Cari</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <button type="button" id class='btn btn-success float-right'><i
-                                        class='fas fa-save mr-2'></i>Simpan Data Pinjam</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card card-primary">
+                    <div class="card-body">
+                        <div class="form-group mb-2">
+                            <label>Kode Transaksi</label>
+                            <input type="text" class="form-control form-control-sm" value="<?= $kode; ?>" disabled>
+                        </div>
+                        <div class="form-group mb-2">
+                            <label>Cari Buku</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control form-control-sm" placeholder="Pilih Buku"
+                                    aria-label="" onclick="dataBuku()">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary btn-sm" type="button"
+                                        onclick="dataBuku()">Cari</button>
+                                </div>
                             </div>
                         </div>
-                        <?php form_close(); ?>
                     </div>
                 </div>
             </div>
@@ -123,23 +82,33 @@ $tgl_kembali = date('d-m-Y', $kembali);
         <!-- data buku -->
 
         <div class="row">
-            <div class="col">
-                <div class="form-group row">
-                    <div class='col-sm-12'>
-                        <table class="table table-sm">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Judul</th>
-                                    <th scope="col" width="20">Tahun</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>2020</td>
-                                </tr>
-                            </tbody>
-                        </table>
+            <div class="col-lg-12 col-md-6 col-lg-6">
+                <div class="card">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-md">
+                                <tbody>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Judul</th>
+                                        <th>Jumlah</th>
+                                        <th>Tanggal Kembali</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Irwansyah Saputra</td>
+                                        <td>2017-01-09</td>
+                                        <td>
+                                            <div class="badge badge-success">
+                                                Active
+                                            </div>
+                                        </td>
+                                        <td><a href="#" class="btn btn-secondary">Detail</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -148,23 +117,9 @@ $tgl_kembali = date('d-m-Y', $kembali);
 </div>
 <!-- main content -->
 <script>
-$("#pilihAnggota").click(function(e) {
-    document.getElementsByName('user_id')[0].value = $(this).attr("data_id");
-    $('#dataPeminjam').modal('hide');
-    $.ajax({
-        type: "POST",
-        url: "<?php echo base_url('transaksi/result');?>",
-        data: 'kode_anggota=' + $(this).attr("data_id"),
-        beforeSend: function() {
-            $("#result").html("");
-            $("#result_tunggu").html('<p style="color:green"><blink>tunggu sebentar</blink></p>');
-        },
-        success: function(html) {
-            $("#result").html(html);
-            $("#result_tunggu").html('');
-        }
-    });
-});
+$(document).ready(function() {
+    // $("#user_id").val("Dolly Duck");
+})
 
 function pinjam() {
     $.LoadingOverlay("show", {
@@ -182,25 +137,20 @@ function pinjam() {
         }
     });
 }
-
-function pilih_anggota($id) {
-    $.LoadingOverlay("show", {
-        image: "",
-        fontawesome: "fa fa-spinner fa-pulse"
-    });
-    $.ajax({
-        url: "<?= base_url("transaksi/pilih_anggota/") ?>",
-        dataType: "html",
-        success: function(result) {
-            $.LoadingOverlay("hide");
-            $('#cari_anggota').modal('show');
-            $('#search_member').html(result);
-
-        }
-    });
+// onclick="pilihPeminjam(3)"
+function id_anggota(id) {
+    // alert(id)
+    // $.LoadingOverlay("show", {
+    //     image: "",
+    //     fontawesome: "fa fa-spinner fa-pulse"
+    // });
+    // $.LoadingOverlay("hide")
+    // $('#user_id').val(id)
+    table.ajax.reload();
+    $("#user_id").val("Dolly Duck");
 }
 
-function beli($id) {
+function beli(id) {
     $.LoadingOverlay("show", {
         image: "",
         fontawesome: "fa fa-spinner fa-pulse"
@@ -260,58 +210,11 @@ function dataBuku() {
                 <h5 class="modal-title">Daftar Anggota</h5> <button type="button" class="close" data-dismiss="modal"
                     aria-label="Close"> <span aria-hidden="true">×</span> </button>
             </div>
-            <form id="form_update" action="<?= base_url('transaksi/cari_anggota'); ?>" method="post">
-                <div class="modal-body" id="search_member">
+            <form id="form_update">
+                <div class=" modal-body" id="search_member">
                 </div>
             </form>
         </div>
     </div>
 </div>
 <!-- modal -->
-
-<!-- modal Anggota -->
-<div class="modal fade" id="modal_anggota" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <form action="<?= site_url('penjualan') ?>" method="post">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Pilih Peminjam</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <!-- <script src="<?= base_url() ?>assets/js/jquery-3.5.1.min.js"></script> -->
-                <div class="modal-body">
-                    <div class="table-responsive">
-                        <table class="table table-bordered text-dark" width="100%" cellspacing="0">
-                            <thead>
-                                <tr class="text-center">
-                                    <th>ID</th>
-                                    <th>Nama</th>
-                                    <th>Alamat</th>
-                                    <th>Pilih</th>
-                                    <!-- <th>Stock</th>
-                                    <th>Action</th> -->
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php $no = 1;
-                                foreach ($anggota as $i => $data) { ?>
-                                <tr>
-                                    <td><?= $no++ ?>.</td>
-                                    <td><?= $data->nama ?></td>
-                                    <td><?= $data->address ?></td>
-                                    <td><a class='btn btn-success'><i class='fas fa-check'></i></a></td>
-                                </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div>
-
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-<!-- modal Anggota -->

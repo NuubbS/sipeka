@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Dashboard &mdash; SIPEKA AKB</title>
+    <title><?= $title; ?> &mdash; Perpus Kampus</title>
     <link rel="icon" type="image/png" href="<?= base_url() ?>assets/img/logo/favicon.png" />
     <!-- <title>Dashboard &mdash; Lazisnu</title> -->
 
@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/summernote/css/summernote-bs4.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/OwlCarousel/dist/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="<?= base_url() ?>assets/plugins/OwlCarousel/dist/assets/owl.theme.default.min.css">
-    <!-- <link rel="stylesheet" src="<?= base_url() ?>assets/plugins/toast/sweetalert2.min.css"> -->
     <link rel="stylesheet" href="<?= base_url() ?>assets/vendor/select2/css/select2.min.css">
     <link rel="stylesheet" type="text/css"
         href="<?= base_url('assets/vendor/select2-bootstrap4-theme/select2-bootstrap4.min.css') ?>">
@@ -252,12 +251,12 @@
                             </a>
                         </li>
 
-                        <!-- <li class="">
+                        <li class="">
                             <a class="nav-link" href="<?= base_url() ?>administrator/peminjaman2">
                                 <i class="fas fa-upload fa-fw"></i>
                                 <span>Transaksi Peminjaman v2</span>
                             </a>
-                        </li> -->
+                        </li>
                         <li class="">
                             <a class="nav-link" href="<?= base_url() ?>transaksi/peminjamanBuku">
                                 <i class="fas fa-clipboard-list fa-fw"></i>

@@ -68,99 +68,107 @@ class Member extends CI_Controller {
                 $m[$key]['buku_id'] = $dipinjam;
             }
             else{
-                $tersedia = sprintf('<span class="badge badge-success">Tersedia</span>');
-                $m[$key]['buku_id'] =$tersedia;
-                }
-		}
-    $this->datatables_builder->render_no_keys($m);
-    }
+                $tersedia = sprintf('<span class="badge badge-success">Tersedia '.$val['jumlah'] .'</span>');
+$m[$key]['buku_id'] =$tersedia;
+}
+}
+$this->datatables_builder->render_no_keys($m);
+}
 
-    public function buku_laporanTA_fetch()
-    {
-    $this->datatables_builder->search('judul, prodi, rak_nama, tahun');
-    $this->datatables_builder->select('tb_buku.judul, tb_prodi.prodi, tb_rak.rak_nama, tb_buku.tahun, tb_buku.buku_id, tb_buku.jumlah,');
-    $this->datatables_builder->from('tb_buku');
-    $this->datatables_builder->join('tb_prodi', 'tb_buku.prodi_id = tb_prodi.prodi_id');
-    $this->datatables_builder->join('tb_rak', 'tb_buku.rak_id = tb_rak.rak_id');
-    $this->datatables_builder->where_in('tb_buku.kategori_id', ['2']);
-    $m = $this->datatables_builder->get();
-    foreach ($m as $key => $val) {
-			if($val['jumlah'] == "0"){
-                $dipinjam = sprintf('<span class="badge badge-danger">Dipinjam</span>');
-                $m[$key]['buku_id'] = $dipinjam;
-            }
-            else{
-                $tersedia = sprintf('<span class="badge badge-success">Tersedia</span>');
-                $m[$key]['buku_id'] =$tersedia;
-                }
-		}
-    $this->datatables_builder->render_no_keys($m);
-    }
+public function buku_laporanTA_fetch()
+{
+$this->datatables_builder->search('judul, prodi, rak_nama, tahun');
+$this->datatables_builder->select('tb_buku.judul, tb_prodi.prodi, tb_rak.rak_nama, tb_buku.tahun, tb_buku.buku_id,
+tb_buku.jumlah,');
+$this->datatables_builder->from('tb_buku');
+$this->datatables_builder->join('tb_prodi', 'tb_buku.prodi_id = tb_prodi.prodi_id');
+$this->datatables_builder->join('tb_rak', 'tb_buku.rak_id = tb_rak.rak_id');
+$this->datatables_builder->where_in('tb_buku.kategori_id', ['2']);
+$m = $this->datatables_builder->get();
+foreach ($m as $key => $val) {
+if($val['jumlah'] == "0"){
+$dipinjam = sprintf('<span class="badge badge-danger">Dipinjam</span>');
+$m[$key]['buku_id'] = $dipinjam;
+}
+else{
+$tersedia = sprintf('<span class="badge badge-success">Tersedia '.$val['jumlah'] .'</span>');
+$m[$key]['buku_id'] =$tersedia;
+}
+}
+$this->datatables_builder->render_no_keys($m);
+}
 
-    public function buku_laporanOJT_fetch()
-    {
-    $this->datatables_builder->search('judul, prodi, rak_nama, tahun');
-    $this->datatables_builder->select('tb_buku.judul, tb_prodi.prodi, tb_rak.rak_nama, tb_buku.tahun, tb_buku.buku_id, tb_buku.jumlah,');
-    $this->datatables_builder->from('tb_buku');
-    $this->datatables_builder->join('tb_prodi', 'tb_buku.prodi_id = tb_prodi.prodi_id');
-    $this->datatables_builder->join('tb_rak', 'tb_buku.rak_id = tb_rak.rak_id');
-    $this->datatables_builder->where_in('tb_buku.kategori_id', ['3']);
-    $m = $this->datatables_builder->get();
-    foreach ($m as $key => $val) {
-			if($val['jumlah'] == "0"){
-                $dipinjam = sprintf('<span class="badge badge-danger">Dipinjam</span>');
-                $m[$key]['buku_id'] = $dipinjam;
-            }
-            else{
-                $tersedia = sprintf('<span class="badge badge-success">Tersedia</span>');
-                $m[$key]['buku_id'] =$tersedia;
-                }
-		}
-    $this->datatables_builder->render_no_keys($m);
-    }
-    
-    public function buku_mataKuliah_fetch()
-    {
-    $this->datatables_builder->search('judul, prodi, rak_nama, tahun');
-    $this->datatables_builder->select('tb_buku.judul, tb_prodi.prodi, tb_rak.rak_nama, tb_buku.tahun, tb_buku.buku_id, tb_buku.jumlah,');
-    $this->datatables_builder->from('tb_buku');
-    $this->datatables_builder->join('tb_prodi', 'tb_buku.prodi_id = tb_prodi.prodi_id');
-    $this->datatables_builder->join('tb_rak', 'tb_buku.rak_id = tb_rak.rak_id');
-    $this->datatables_builder->where_in('tb_buku.kategori_id', ['4']);
-    $m = $this->datatables_builder->get();
-    foreach ($m as $key => $val) {
-			if($val['jumlah'] == "0"){
-                $dipinjam = sprintf('<span class="badge badge-danger">Dipinjam</span>');
-                $m[$key]['buku_id'] = $dipinjam;
-            }
-            else{
-                $tersedia = sprintf('<span class="badge badge-success">Tersedia</span>');
-                $m[$key]['buku_id'] =$tersedia;
-                }
-		}
-    $this->datatables_builder->render_no_keys($m);
-    }
+public function buku_laporanOJT_fetch()
+{
+$this->datatables_builder->search('judul, prodi, rak_nama, tahun');
+$this->datatables_builder->select('tb_buku.judul, tb_prodi.prodi, tb_rak.rak_nama, tb_buku.tahun, tb_buku.buku_id,
+tb_buku.jumlah,');
+$this->datatables_builder->from('tb_buku');
+$this->datatables_builder->join('tb_prodi', 'tb_buku.prodi_id = tb_prodi.prodi_id');
+$this->datatables_builder->join('tb_rak', 'tb_buku.rak_id = tb_rak.rak_id');
+$this->datatables_builder->where_in('tb_buku.kategori_id', ['3']);
+$m = $this->datatables_builder->get();
+foreach ($m as $key => $val) {
+if($val['jumlah'] == "0"){
+$dipinjam = sprintf('<span class="badge badge-danger">Dipinjam</span>');
+$m[$key]['buku_id'] = $dipinjam;
+}
+else{
+$tersedia = sprintf('<span class="badge badge-success">Tersedia '.$val['jumlah'] .'</span>');
+$m[$key]['buku_id'] =$tersedia;
+}
+}
+$this->datatables_builder->render_no_keys($m);
+}
 
-    public function riwayatPeminjaman_fetch()
-    {
-    $this->datatables_builder->search('judul, prodi, rak_nama, date_created, date_created');
-    $this->datatables_builder->select('tb_pinjam.kode_transaksi, tb_buku.judul, tb_pinjam.tanggal_pinjam, tb_detailpinjam.tanggal_kembali, tb_detailpinjam.pinjam_id, tb_pinjam.status_id');
-    $this->datatables_builder->from('tb_detailpinjam');
-    $this->datatables_builder->join('tb_pinjam', 'tb_pinjam.pinjam_id = tb_detailpinjam.pinjam_id');
-    $this->datatables_builder->join('tb_buku', 'tb_detailpinjam.buku_id = tb_buku.buku_id');
-    $this->datatables_builder->where('tb_pinjam.user_id', $this->sesi->user_login()->user_id);
-    $this->datatables_builder->order_by('tb_buku.date_created', 'desc');
-    $m = $this->datatables_builder->get();
-    foreach ($m as $key => $val) {
-			if($val['status_id'] == "3"){
-                $dipinjam = sprintf('<span class="badge badge-warning">Dipinjam</span>');
-                $m[$key]['pinjam_id'] = $dipinjam;
-            }
-            else{
-                $tersedia = sprintf('<span class="badge badge-success">Dikembalikan</span>');
-                $m[$key]['pinjam_id'] =$tersedia;
-                }
-		}
-    $this->datatables_builder->render_no_keys($m);
-    }
+public function buku_mataKuliah_fetch()
+{
+$this->datatables_builder->search('judul, prodi, rak_nama, tahun');
+$this->datatables_builder->select('tb_buku.judul, tb_prodi.prodi, tb_rak.rak_nama, tb_buku.tahun, tb_buku.buku_id,
+tb_buku.jumlah,');
+$this->datatables_builder->from('tb_buku');
+$this->datatables_builder->join('tb_prodi', 'tb_buku.prodi_id = tb_prodi.prodi_id');
+$this->datatables_builder->join('tb_rak', 'tb_buku.rak_id = tb_rak.rak_id');
+$this->datatables_builder->where_in('tb_buku.kategori_id', ['4']);
+$m = $this->datatables_builder->get();
+foreach ($m as $key => $val) {
+if($val['jumlah'] == "0"){
+$dipinjam = sprintf('<span class="badge badge-danger">Dipinjam</span>');
+$m[$key]['buku_id'] = $dipinjam;
+}
+else{
+$tersedia = sprintf('<span class="badge badge-success">Tersedia '.$val['jumlah'] .'</span>');
+$m[$key]['buku_id'] =$tersedia;
+}
+}
+$this->datatables_builder->render_no_keys($m);
+}
+
+public function riwayatPeminjaman_fetch()
+{
+$this->datatables_builder->search('judul, prodi, rak_nama');
+$this->datatables_builder->select('tb_pinjam.kode_transaksi, tb_buku.judul, tb_pinjam.tanggal_pinjam,
+tb_detailpinjam.tanggal_kembali, tb_detailpinjam.pinjam_id, tb_pinjam.status_id');
+$this->datatables_builder->from('tb_detailpinjam');
+$this->datatables_builder->join('tb_pinjam', 'tb_pinjam.pinjam_id = tb_detailpinjam.pinjam_id');
+$this->datatables_builder->join('tb_buku', 'tb_detailpinjam.buku_id = tb_buku.buku_id');
+$this->datatables_builder->where_in('tb_pinjam.user_id', $this->sesi->user_login()->user_id);
+$this->datatables_builder->order_by('detailpinjam_id', 'desc');
+$m = $this->datatables_builder->get();
+foreach ($m as $key => $val) {
+if($val['status_id'] == "4"){
+$dipinjam = sprintf('<span class="badge badge-success">Dikembalikan</span>');
+$m[$key]['pinjam_id'] = $dipinjam;
+}
+else if($val['tanggal_kembali'] >= date('Y-m-d')){
+$tersedia = sprintf('<span class="badge badge-warning">Dipinjam</span>');
+$m[$key]['pinjam_id'] =$tersedia;
+}
+else{
+$tersedia = sprintf('<span class="badge badge-danger">Didenda</span>');
+$m[$key]['pinjam_id'] =$tersedia;
+}
+}
+$this->datatables_builder->render_no_keys($m);
+}
 }

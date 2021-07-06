@@ -35,7 +35,7 @@ class Administrator extends CI_Controller {
 		foreach ($results as $row ) {
 			$select2ajax[] = array(
 				'id' => $row['user_id'],
-				'text' => $row['nama']. " (". $row['alamat'].") ". " (". $row['status'].") "
+				'text' => $row['nama']. " (". $row['alamat'].") ",
 			);
 			$this->output->set_content_type('application/json')->set_output(json_encode($select2ajax));
 		}
@@ -45,6 +45,7 @@ class Administrator extends CI_Controller {
 	public function index()
 	{
 		check_admin();
+        $data['title'] = "Dashboard";
         $data['buku'] = $this->main_m->view_join_three_unwhere('tb_buku', 'tb_kategori', 'tb_prodi', 'tb_rak', 'kategori_id', 'prodi_id', 'rak_id', 'buku_id', 'desc', 0, 4);
         $data['anggota'] = $this->main_m->view_where_ordering_limit('tb_user', array('tb_user.level_id' => 2) , 'tb_user.date_created', 'desc', 0, 4);
         $data['peminjaman'] = $this->main_m->view_join_one_where('tb_pinjam', 'tb_user', 'user_id', array('tb_pinjam.status_id' => 3) , 'tb_pinjam.pinjam_id', 'desc', 0, 4);
@@ -56,7 +57,8 @@ class Administrator extends CI_Controller {
     
     public function kategori()
     {
-        $this->template->load('template','administrator/data/kategori');
+        $data['title'] = "Kategori Buku";
+        $this->template->load('template','administrator/data/kategori', $data);
     }
     
     public function referensi()
@@ -425,24 +427,28 @@ class Administrator extends CI_Controller {
     
     public function prodi()
     {
-        $this->template->load('template','administrator/data/prodi');
+        $data['title'] = "Prodi";
+        $this->template->load('template','administrator/data/prodi', $data);
     }
     
     public function rak()
     {
-        $this->template->load('template','administrator/data/rak');
+        $data['title'] = "Rak";
+        $this->template->load('template','administrator/data/rak', $data);
     }
     
     public function denda()
     {
-        $this->template->load('template','administrator/data/denda');
+        $data['title'] = "Denda";
+        $this->template->load('template','administrator/data/denda', $data);
     }
 
     // data pengguna
 
     public function petugas()
     {
-        $this->template->load('template','administrator/data/petugas');
+        $data['title'] = "Petugas";
+        $this->template->load('template','administrator/data/petugas', $data);
     }
 
     # Untuk menampilkan data petugas
@@ -487,6 +493,7 @@ class Administrator extends CI_Controller {
     "no_handphone" => $no_handphone,
     "date_created" => date('Y-m-d H:i:s'),
     "level_id" => 1,
+    "status_id" => 1,
     ];
     $insert_admin_id = $this->administrator_m->simpan_admin($data);
     if (@$insert_admin_id) {
@@ -545,7 +552,8 @@ class Administrator extends CI_Controller {
     
     public function anggota()
     {
-        $this->template->load('template','administrator/data/anggota');
+        $data['title'] = "Anggota";
+        $this->template->load('template','administrator/data/anggota', $data);
     }
 
     # Untuk menampilkan data anggota
@@ -590,6 +598,7 @@ class Administrator extends CI_Controller {
     "no_handphone" => $no_handphone,
     "date_created" => date('Y-m-d H:i:s'),
     "level_id" => 2,
+    "status_id" => 1 #bisa pinjam buku
     ];
     $insert_member_id = $this->administrator_m->simpan_member($data);
     if (@$insert_member_id) {
@@ -652,59 +661,17 @@ class Administrator extends CI_Controller {
     //= = = = = = = = = = = = = = = = = = = =//
     public function peminjaman()
     {
-        // ===== Kode Otomatis Transaksi ===== //
-        $table= "tb_pinjam";
-        $field= "kode_transaksi";
-        $today= date('ymd');
-        $prefix= "TR".$today;
-        
-        $lastKode= $this->administrator_m->getMax_Today($prefix, $table, $field);
-        $noUrut= (int) substr($lastKode, -3, 3);
-        $noUrut++;
-
-        // $newKode= $prefix . sprintf('%03s', $noUrut);
-        /// var_dump($newKode);
-        // die;
-        // cek data
-        $pinjam = $this->crud_m->tampil_order('pinjam_id', 'tb_pinjam', 'DESC')->row();
-        if (empty($pinjam)) {
-            $data['kode_jual'] = 1;
-            $kode['pinjam_id'] = 1;
-        } else {
-            $data['kode_jual'] = $pinjam->pinjam_id + 1;
-            $kode['pinjam_id'] = $pinjam->pinjam_id + 1;
-        }
-        $data['newKode']= $prefix . sprintf('%03s', $noUrut);
-        $data['detailPinjam'] = $this->crud_m->tampil_join('tb_buku', 'tb_detailpinjam', 'tb_buku.buku_id=tb_detailpinjam.buku_id', $kode)->result();
+        $data['title'] = "Peminjaman";
+        $data['kode'] = $this->kodeotomatis_m->kodeT();
         $this->template->load('template', 'transaksi/peminjaman', $data);
         
     }
 
     public function peminjaman2()
     {
-        // ===== Kode Otomatis Transaksi ===== //
-        $table= "tb_pinjam";
-        $field= "kode_transaksi";
-        $today= date('ymd');
-        $prefix= "TR".$today;
-        
-        $lastKode= $this->kodeotomatis_m->getMax_Today($prefix, $table, $field);
-        $noUrut= (int) substr($lastKode, -3, 3);
-        $noUrut++;
-
-        // var_dump($newKode);
-        // die;
-        // cek data
-        $pinjam = $this->crud_m->tampil_order('pinjam_id', 'tb_pinjam', 'DESC')->row();
-        if (empty($pinjam)) {
-            $data['kode_jual'] = 1;
-            $kode['pinjam_id'] = 1;
-        } else {
-            $data['kode_jual'] = $pinjam->pinjam_id + 1;
-            $kode['pinjam_id'] = $pinjam->pinjam_id + 1;
-        }
-        $data['newKode']= $prefix . sprintf('%03s', $noUrut);
-        $data['detailPinjam'] = $this->crud_m->tampil_join('tb_buku', 'tb_detailpinjam', 'tb_buku.buku_id=tb_detailpinjam.buku_id', $kode)->result();
+        $data=[
+            'kode' => $this->kodeotomatis_m->kodeT()
+        ];
         $this->template->load('template', 'transaksi/peminjaman2', $data);
         
     }
