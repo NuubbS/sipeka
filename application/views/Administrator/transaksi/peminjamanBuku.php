@@ -1,3 +1,20 @@
+<!-- modal detail -->
+<div class="modal fade" tabindex="-1" role="dialog" id="detail_pinjam" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Data Buku Dipinjam</h5> <button type="button" class="close" data-dismiss="modal"
+                    aria-label="Close"> <span aria-hidden="true">×</span> </button>
+            </div>
+            <form>
+                <div class="modal-body" id="content_pinjam">
+                    <!-- isi form di folder lain -->
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- modal detail -->
 <!-- Main Content -->
 <div class="main-content">
     <section class="section">
@@ -134,48 +151,67 @@ function kembali(id) {
         }
     })
 }
-// script kembalikan
-</script>
 
-<!-- modal transaksi -->
-<div class="modal fade" tabindex="-1" role="dialog" id="formTransaksi" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Form Tambah Peminjaman</h5> <button type="button" class="close"
-                    data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">×</span> </button>
-            </div>
-            <form id="form_update" action="<?= base_url('administrator/admin_update'); ?>" method="post">
-                <div class="modal-body" id="content_update">
-                    <div class="form-group row">
-                        <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                        <div class="col-sm-10">
-                            <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                        </div>
-                    </div>
-                    <div class="form-group row mb-0">
-                        <label class="col-sm-2 col-form-label">Peminjam</label>
-                        <div class="col-sm-10">
-                            <div class="form-group">
-                                <select class="select_peminjam form-control" name="user_id"></select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group row mb-0">
-                        <div class="col-sm-9">
-                            <div class="form-group">
-                                <select class="select_buku form-control " multiple="multiple" name="buku_id" required>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer bg-whitesmoke br">
-                    <button type="button" class="btn btn-danger" onclick="closes_update()">Close</button>
-                    <button type="button" class="btn btn-primary" onclick="updateData()">Simpan</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- end modal transaksi -->
+function hapus(id) {
+    Swal.fire({
+        title: 'Apakah anda Yakin ?',
+        text: "Data yang dihapus tidak dapat dikembalikan !",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, hapus sekarang!',
+        cancelButtonText: 'Batal hapus'
+    }).then((result) => {
+        if (result.value) {
+            $.LoadingOverlay("show", {
+                image: "",
+                fontawesome: "fa fa-spinner fa-pulse"
+            });
+            $.post('<?= base_url('transaksi/peminjaman_hapus') ?>', {
+                'id': id
+            }, function(data, textStatus, xhr) {
+                $.LoadingOverlay("hide");
+                if (data.status = 1) {
+                    iziToast.success({
+                        title: 'Success!',
+                        message: 'Data berhasil dihapus !',
+                        position: 'topRight',
+                        balloon: true,
+                        transitionIn: 'fadeInLeft',
+                        transitionOut: 'fadeOutRight'
+                    });
+                    table.ajax.reload();
+                } else {
+                    iziToast.error({
+                        title: 'Error!',
+                        message: 'Data gagal dihapus',
+                        position: 'topRight',
+                        balloon: true,
+                        transitionIn: 'fadeInLeft',
+                        transitionOut: 'fadeOutRight'
+                    });
+                    table.ajax.reload();
+                }
+            }, 'json');
+        }
+    })
+}
+
+function detail(id) {
+    $.LoadingOverlay("show", {
+        image: "",
+        fontawesome: "fa fa-spinner fa-pulse"
+    });
+    $.ajax({
+        url: "<?= base_url("transaksi/detailpinjam/") ?>" + id,
+        dataType: "html",
+        success: function(result) {
+            $.LoadingOverlay("hide");
+            $('#detail_pinjam').modal('show');
+            $('#content_pinjam').html(result);
+
+        }
+    });
+}
+</script>

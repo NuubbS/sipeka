@@ -8,7 +8,7 @@ class Member extends CI_Controller {
         parent::__construct();
         check_not_login();
         check_member();
-        $this->load->model(['kodeotomatis_m', 'dataperpus_m']);
+        $this->load->model(['kodeotomatis_m', 'dataperpus_m', 'administrator_m']);
     }
 
     // pages
@@ -171,4 +171,30 @@ $m[$key]['pinjam_id'] =$tersedia;
 }
 $this->datatables_builder->render_no_keys($m);
 }
+
+function update_profil()
+    {
+        $user_id = $this->input->post('user_id');
+        $no_handphone = $this->input->post('no_handphone');
+        $alamat = $this->input->post('alamat');
+
+        $data = [
+            "user_id" => $user_id,
+            "no_handphone" => $no_handphone,
+            "alamat" => $alamat,
+            "date_updated" => date('Y-m-d H:i:s'),
+        ];
+
+        // var_dump($data);
+        // die;
+        $update_user_id = $this->administrator_m->update_anggota($user_id, $data);
+        if (@$update_user_id) {
+            $message['messages'] = "Berhasil Update Data Anggota";
+            $message['status'] = "1";
+        } else {
+            $message['messages'] = "Gagal Update Data Anggota";
+            $message['status'] = "0";
+        }
+        echo json_encode($message);
+    }
 }

@@ -37,11 +37,19 @@ Class Crud_m extends CI_Model
         $this->db->order_by($field,$order);
         return $this->db->get($table);
     }
-
+    
     function tampil_join($table, $tablejoin,$join, $where)
     {
         $this->db->join($tablejoin, $join);
         $this->db->where($where);
+        return $this->db->get($table);
+    }
+    
+    function tampil_join_order($table, $tablejoin,$join, $where, $field, $order)
+    {
+        $this->db->join($tablejoin, $join);
+        $this->db->where($where);
+        $this->db->order_by($field,$order);
         return $this->db->get($table);
     }
 

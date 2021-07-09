@@ -98,6 +98,28 @@ class Main_m extends CI_Model
         return $this->db->get()->result_array();
     }
 
+    public function view_join_two($table1, $table2, $table3, $field, $field1, $order, $ordering)
+    {
+        $this->db->select('*');
+        $this->db->from($table1);
+        $this->db->join($table2, $table1 . '.' . $field . '=' . $table2 . '.' . $field);
+        $this->db->join($table3, $table1 . '.' . $field1 . '=' . $table3 . '.' . $field1);
+        $this->db->order_by($order, $ordering);
+        return $this->db->get()->result_array();
+    }
+
+    public function view_eksportPDF($table1, $table2, $table3, $table4, $field, $field1, $field2, $where, $order, $ordering)
+    {
+        $this->db->select('*');
+        $this->db->from($table1);
+        $this->db->join($table2, $table1 . '.' . $field . '=' . $table2 . '.' . $field);
+        $this->db->join($table3, $table1 . '.' . $field1 . '=' . $table3 . '.' . $field1);
+        $this->db->join($table4, $table3 . '.' . $field2 . '=' . $table4 . '.' . $field2);
+        $this->db->where($where);
+        $this->db->order_by($order, $ordering);
+        return $this->db->get()->result_array();
+    }
+
     public function view_join_where($table1, $table2, $field, $where, $order, $ordering)
     {
         $this->db->select('*');
@@ -105,6 +127,15 @@ class Main_m extends CI_Model
         $this->db->join($table2, $table1 . '.' . $field . '=' . $table2 . '.' . $field);
         $this->db->where($where);
         $this->db->order_by($order, $ordering);
+        return $this->db->get()->result_array();
+    }
+
+    public function view_join_whereno($table1, $table2, $field, $where)
+    {
+        $this->db->select('*');
+        $this->db->from($table1);
+        $this->db->join($table2, $table1 . '.' . $field . '=' . $table2 . '.' . $field);
+        $this->db->where($where);
         return $this->db->get()->result_array();
     }
 

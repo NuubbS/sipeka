@@ -2,7 +2,7 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Buku</h1>
+            <h1>Buku Laporan Tugas Akhir</h1>
         </div>
 
         <div class="section-body">

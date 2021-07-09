@@ -4,99 +4,6 @@
         <div class="section-header">
             <h1>Dashboard</h1>
         </div>
-        <!-- pintasan carousel -->
-        <!-- <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="card card-statistic-1">
-                                <div class="card-icon bg-primary">
-                                    <i class="fas fa-users"></i>
-                                </div>
-                                <div class="card-wrap">
-                                    <div class="card-header">
-                                        <h4>Anggota</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        10
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="card card-statistic-1">
-                                <div class="card-icon bg-info">
-                                    <i class="fas fa-user-shield"></i>
-                                </div>
-                                <div class="card-wrap">
-                                    <div class="card-header">
-                                        <h4>Petugas</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        100
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="card card-statistic-1">
-                                <div class="card-icon bg-success">
-                                    <i class="fas fa-upload"></i>
-                                </div>
-                                <div class="card-wrap">
-                                    <div class="card-header">
-                                        <h4>Buku Dipinjam</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        Rp. 100.000.000
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="card card-statistic-1">
-                                <div class="card-icon bg-warning">
-                                    <i class="fas fa-download"></i>
-                                </div>
-                                <div class="card-wrap">
-                                    <div class="card-header">
-                                        <h4>Buku Dikembalikan</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        Rp. 100.000.000
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12">
-                            <div class="card card-statistic-1">
-                                <div class="card-icon bg-success">
-                                    <i class="fas fa-book"></i>
-                                </div>
-                                <div class="card-wrap">
-                                    <div class="card-header">
-                                        <h4>Buku</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        50 Buku
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        <!-- pintasan carousel -->
         <!-- data tabel -->
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12">
@@ -111,6 +18,7 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">Judul</th>
+                                    <th scope="col">Kategori</th>
                                     <th scope="col">Tanggal Dibuat</th>
                                     <th scope="col">Ditambahkan Oleh</th>
                                 </tr>
@@ -122,6 +30,7 @@
                                 <tr>
                                     <th scope="row"><?= $no++; ?></th>
                                     <td><?= $data->judul; ?></td>
+                                    <td><?= $data->kategori; ?></td>
                                     <td><?= $data->date_created; ?></td>
                                     <td><?= $data->created_by; ?></td>
                                 </tr>
@@ -146,8 +55,9 @@
                                 <tr>
                                     <th scope="col">#</th>
                                     <th scope="col">nama</th>
-                                    <th scope="col">Tanggal Dibuat</th>
                                     <th scope="col">Alamat</th>
+                                    <th scope="col">No. Handphone</th>
+                                    <th scope="col">Tanggal Dibuat</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -157,8 +67,9 @@
                                 <tr>
                                     <th scope="row"><?= $no++; ?></th>
                                     <td><?= $data->nama; ?></td>
-                                    <td><?= $data->date_created; ?></td>
                                     <td><?= $data->alamat; ?></td>
+                                    <td><?= $data->no_handphone; ?></td>
+                                    <td><?= $data->date_created; ?></td>
                                 </tr>
                                 <?php } ?>
                             </tbody>
@@ -181,6 +92,7 @@
                                     <th scope="col">#</th>
                                     <th scope="col">Kode Transaksi</th>
                                     <th scope="col">Nama Peminjam</th>
+                                    <th scope="col">Tanggal Pinjam</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -191,6 +103,7 @@
                                     <th scope="row"><?= $no++; ?></th>
                                     <td><?= $data->kode_transaksi; ?></td>
                                     <td><?= $data->nama; ?></td>
+                                    <td><?= $data->tanggal_pinjam; ?></td>
                                 </tr>
                                 <?php } ?>
                             </tbody>

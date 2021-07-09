@@ -17,6 +17,12 @@ class Transaksi_m extends CI_Model
         }
     }
 
+    public function input_pinjam($data)
+    {
+        $this->db->insert('tb_pinjam', $data);
+        return $this->db->affected_rows();
+    }
+
     public function konfirmasiPengembalian($pinjam_id, $data, $type)
     {
         if ($type == 'tb_pinjam') {
@@ -24,6 +30,24 @@ class Transaksi_m extends CI_Model
         }else{
             $this->db->where('pinjam_id', $pinjam_id)->update('tb_detailpinjam', $data);
             // return $this->db->affected_rows();
+        }
+    }
+
+    public function laporanPinjam()
+    {
+        $this->db->from('tb_pinjam');
+        $this->db->join('tb_user', 'tb_user.user_id = tb_pinjam.user_id');
+        return $this->db->get()->result_array();
+    }
+
+    public function hapus_peminjaman($id)
+    {
+        if (@$this->db->where('pinjam_id', $id)->delete("tb_pinjam")) {
+            $this->db->join('tb_detailpinjam', 'tb_detailpinjam.pinjam_id = tb_pinjam.pinjam_id');
+            // UPDATE tb_buku SET jumlah = jumlah + old.jumlah_pinjam WHERE tb_buku.buku_id = old.buku_id;
+            return true;
+        } else {
+            return false;
         }
     }
 }

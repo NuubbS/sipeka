@@ -22,10 +22,10 @@
                 <div class="col-12 col-md-12 col-lg-12">
                     <div class="card profile-widget">
                         <div class="profile-widget-header">
-                            <img alt="image" src="http://localhost:8080/stisla-master/assets/img/avatar/avatar-1.png"
+                            <img alt="image" src="<?= base_url() ?>assets/img/avatar/default_user.png"
                                 class="rounded-circle profile-widget-picture">
                             <div class="profile-widget-items">
-                                <div class="profile-widget-item text-right mr-4">
+                                <div class="profile-widget-item">
                                     <div class="profile-widget-item-label">
                                         Terdaftar Sejak
                                     </div>
@@ -33,13 +33,22 @@
                                         <?= $member->date_created; ?>
                                     </div>
                                 </div>
+                                <div class="profile-widget-item">
+                                    <div class="profile-widget-item-label">
+                                        Terakhir Diubah
+                                    </div>
+                                    <div class="profile-widget-item-value">
+                                        <?= $member->date_updated; ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="profile-widget-description">
-                            <form>
+                            <form id="form_update" action="<?= base_url('member/update_profil'); ?>" method="post">
                                 <div class="row">
                                     <div class="form-group col-md-12 col-12">
                                         <label>Nama Lengkap</label>
+                                        <input type="hidden" name="user_id" value="<?= $member->user_id; ?>">
                                         <input type="text" class="form-control" value="<?= $member->nama; ?>" required
                                             readonly>
                                         <div class="invalid-feedback">
@@ -58,18 +67,22 @@
                                     </div>
                                     <div class="form-group col-md-5 col-12">
                                         <label>Phone</label>
-                                        <input type="number" class="form-control" value="<?= $member->no_handphone; ?>">
+                                        <input type="number" class="form-control" name="no_handphone"
+                                            value="<?= $member->no_handphone; ?>">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-12">
                                         <label for="alamat">Alamat</label>
-                                        <input type="text" class="form-control" value="<?= $member->alamat; ?>">
+                                        <input type="text" class="form-control" name="alamat"
+                                            value="<?= $member->alamat; ?>">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-group col-12">
-                                        <button class="btn btn-primary float-right">Simpan Perubahan</button>
+                                        <button type="submit" onclick="updateData()"
+                                            class="btn btn-primary float-right">Simpan
+                                            Perubahan</button>
                                     </div>
                                 </div>
                             </form>
@@ -81,3 +94,47 @@
     </section>
 </div>
 <!-- main content -->
+<script>
+function updateData() {
+    $.LoadingOverlay("show", {
+        image: "",
+        fontawesome: "fa fa-spinner fa-pulse"
+    });
+    var form = $('#form_update');
+    $.ajax({
+        type: "POST",
+        url: form.attr('action'),
+        data: form.serialize(),
+        dataType: "json",
+        success: function(result) {
+            message = result.messages;
+            status = result.status;
+            notifikasi(status, message);
+        }
+    });
+}
+
+function notifikasi(status, message) {
+    $.LoadingOverlay("hide");
+    location.reload();
+    if (status == 1) {
+        iziToast.success({
+            title: 'Success',
+            message: message,
+            position: 'topRight',
+            balloon: true,
+            transitionIn: 'fadeInLeft',
+            transitionOut: 'fadeOutRight'
+        });
+    } else {
+        iziToast.error({
+            title: 'Error',
+            message: message,
+            position: 'topRight',
+            balloon: true,
+            transitionIn: 'fadeInLeft',
+            transitionOut: 'fadeOutRight'
+        });
+    }
+}
+</script>
